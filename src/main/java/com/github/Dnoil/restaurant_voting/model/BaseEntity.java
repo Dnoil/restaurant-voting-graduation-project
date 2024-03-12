@@ -2,12 +2,16 @@ package com.github.Dnoil.restaurant_voting.model;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
+@Getter
+@Setter
 public abstract class BaseEntity implements Persistable<Integer> {
 
     @Id
@@ -18,23 +22,6 @@ public abstract class BaseEntity implements Persistable<Integer> {
     @NotBlank
     @Size(min = 1, max = 128)
     private String name;
-
-    @Override
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     @Override
     public boolean isNew() {
