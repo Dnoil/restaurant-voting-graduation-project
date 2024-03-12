@@ -19,8 +19,6 @@ public class Menu extends BaseEntity {
     @NotNull
     private Restaurant restaurant;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "menu_dish")
-    private List<Dish> dishes;
-
+    public Menu() {
+    }
 }

@@ -20,6 +20,9 @@ public class Dish extends BaseEntity {
     @NotNull
     private Menu menu;
 
+    public Dish() {
+    }
+
     public Integer getPrice() {
         return price;
     }

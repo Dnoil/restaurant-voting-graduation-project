@@ -14,16 +14,6 @@ import java.util.*;
 @Table(name = "user")
 public class User extends BaseEntity {
 
-    @Column(name = "first_name", nullable = false)
-    @NotBlank
-    @Size(min = 1, max = 128)
-    private String firstName;
-
-    @Column(name = "last_name", nullable = false)
-    @NotBlank
-    @Size(min = 1, max = 128)
-    private String lastName;
-
     @Column(name = "email", nullable = false, unique = true)
     @Email
     @NotBlank
@@ -44,6 +34,9 @@ public class User extends BaseEntity {
     @NotNull
     private Date registered = new Date();
 
+    @Column(name = "enabled", nullable = false)
+    private boolean enabled = true;
+
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
             uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role"}, name = "unq_user_role")})
@@ -51,20 +44,7 @@ public class User extends BaseEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public User() {
     }
 
     public String getEmail() {

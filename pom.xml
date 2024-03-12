@@ -19,6 +19,7 @@
     <description>Restaurant Voting Graduation Project</description>
 
     <properties>
+        <spring.context.version>6.1.4</spring.context.version>
         <java.version>21</java.version>
         <spring-data-jpa.version>2.7.18</spring-data-jpa.version>
         <hibernate.version>5.6.15.Final</hibernate.version>
@@ -26,6 +27,9 @@
     </properties>
 
     <dependencies>
+
+        <!-- Spring -->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
@@ -44,8 +48,22 @@
 
         <dependency>
             <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.context.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring-data-jpa.version}</version>
+        </dependency>
+
+        <!-- Hibernate -->
 
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -59,18 +77,15 @@
             <version>${hibernate-validator.version}</version>
         </dependency>
 
-        <dependency>
-
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
-            <version>${spring-data-jpa.version}</version>
-        </dependency>
+        <!-- Database -->
 
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <scope>runtime</scope>
         </dependency>
+
+        <!-- javax -->
 
         <dependency>
             <groupId>javax.annotation</groupId>
