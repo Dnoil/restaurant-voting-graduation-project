@@ -21,5 +21,5 @@ VALUES ('Cool Menu', '2024-03-05 09:22:06', 0),
        ('Cooler Menu', '2024-03-05 09:20:00', 1);
 
 INSERT INTO dish (name, price, dish_menu)
-VALUES ('Cool Restaurant', 199, 0),
-       ('Cooler Restaurant', 200, 1);
+VALUES ('Cool Dish', 199, 0),
+       ('Cooler Dish', 200, 1);

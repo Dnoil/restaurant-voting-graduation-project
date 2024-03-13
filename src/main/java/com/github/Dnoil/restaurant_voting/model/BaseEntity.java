@@ -1,12 +1,11 @@
 package com.github.Dnoil.restaurant_voting.model;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Persistable;
-
-import javax.persistence.*;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
