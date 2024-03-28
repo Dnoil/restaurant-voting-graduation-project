@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.util.CollectionUtils;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
@@ -48,6 +49,13 @@ public class User extends BaseEntity {
     @Column(name = "role", nullable = false)
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
+
+    @Column(name = "voted", nullable = false)
+    @NotNull
+    private boolean voted = false;
+
+    @Column(name = "voted_time")
+    private LocalDateTime votedTime;
 
     public void setRoles(Collection<Role> roles) {
         this.roles = CollectionUtils.isEmpty(roles) ? EnumSet.noneOf(Role.class) : EnumSet.copyOf(roles);

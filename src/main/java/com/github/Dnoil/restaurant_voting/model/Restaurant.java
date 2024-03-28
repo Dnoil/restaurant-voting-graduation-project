@@ -3,6 +3,7 @@ package com.github.Dnoil.restaurant_voting.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -22,5 +23,14 @@ public class Restaurant extends BaseEntity {
     private String address;
 
     @Column(name = "voted_popularity")
-    private Integer votedPopularity;
+    @Min(0)
+    private Integer votedPopularity = 0;
+
+    public void upVote() {
+        votedPopularity++;
+    }
+
+    public void downVote() {
+        votedPopularity--;
+    }
 }

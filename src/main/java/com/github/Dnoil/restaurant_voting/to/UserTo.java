@@ -1,21 +1,17 @@
 package com.github.Dnoil.restaurant_voting.to;
 
-import com.github.Dnoil.restaurant_voting.model.BaseEntity;
 import com.github.Dnoil.restaurant_voting.model.Role;
-
 import com.github.Dnoil.restaurant_voting.model.User;
-import lombok.Data;
 
 import java.util.Date;
 import java.util.Set;
 
-@Data
 public class UserTo extends BaseTo {
-    private String email;
-    private String login;
-    private Date registered = new Date();
-    private boolean enabled = true;
-    private Set<Role> roles;
+    private final String email;
+    private final String login;
+    private final Date registered;
+    private final boolean enabled;
+    private final Set<Role> roles;
 
     public UserTo(User user) {
         super(user);
