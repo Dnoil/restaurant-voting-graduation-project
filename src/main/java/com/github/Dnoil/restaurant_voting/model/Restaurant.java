@@ -1,14 +1,13 @@
 package com.github.Dnoil.restaurant_voting.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.Min;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "restaurant")
@@ -22,15 +21,9 @@ public class Restaurant extends BaseEntity {
     @Size(max = 128)
     private String address;
 
-    @Column(name = "voted_popularity")
-    @Min(0)
-    private Integer votedPopularity = 0;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    private Menu menu;
 
-    public void upVote() {
-        votedPopularity++;
-    }
-
-    public void downVote() {
-        votedPopularity--;
-    }
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    private Set<Vote> votes;
 }

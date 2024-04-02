@@ -23,3 +23,6 @@ VALUES ('Cool Menu', '2024-03-05 09:22:06', 0),
 INSERT INTO dish (name, price, dish_menu)
 VALUES ('Cool Dish', 199, 0),
        ('Cooler Dish', 200, 1);
+
+INSERT INTO vote (name, time, user_id, restaurant_id)
+VALUES ('first', now(), 0, 0);

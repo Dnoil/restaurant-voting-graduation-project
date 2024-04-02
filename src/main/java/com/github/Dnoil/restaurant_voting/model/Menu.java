@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "menu")
@@ -19,8 +20,11 @@ public class Menu extends BaseEntity {
     @NotNull
     private Date date;
 
+    @JoinColumn(name = "restaurant_id", nullable = false)
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "menu_restaurant", nullable = false)
     @NotNull
     private Restaurant restaurant;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
+    private List<Dish> dishes;
 }

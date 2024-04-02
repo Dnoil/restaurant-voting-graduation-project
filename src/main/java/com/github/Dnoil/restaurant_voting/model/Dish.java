@@ -20,8 +20,8 @@ public class Dish extends BaseEntity {
     @Range(min = 0)
     private Integer price;
 
+    @JoinColumn(name = "menu_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dish_menu", nullable = false)
     @NotNull
     private Menu menu;
 }
