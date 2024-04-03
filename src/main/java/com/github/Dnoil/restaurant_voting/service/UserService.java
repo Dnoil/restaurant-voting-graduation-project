@@ -11,25 +11,25 @@ import java.util.List;
 @AllArgsConstructor
 public class UserService {
 
-    private final UserRepository dishRepository;
+    private final UserRepository userRepository;
 
     public List<User> getAll() {
-        return dishRepository.findAll();
+        return userRepository.getAll();
     }
 
     public User get(int id) {
-        return dishRepository.getReferenceById(id);
+        return userRepository.get(id);
     }
 
-    public User create(User user) {
-        return dishRepository.save(user);
+    public User getByEmail(String email) {
+        return userRepository.getByEmail(email);
     }
 
-    public User update(User user) {
-        return dishRepository.save(user);
+    public User createOrUpdate(User user) {
+        return userRepository.save(user);
     }
 
     public void delete(int id) {
-        dishRepository.deleteById(id);
+        userRepository.delete(id);
     }
 }

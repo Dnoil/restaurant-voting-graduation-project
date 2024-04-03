@@ -14,22 +14,22 @@ public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
 
     public List<Restaurant> getAll() {
-        return restaurantRepository.findAll();
+        return restaurantRepository.getAllByVotes();
     }
 
     public Restaurant get(int id) {
-        return restaurantRepository.getReferenceById(id);
+        return restaurantRepository.get(id);
     }
 
-    public Restaurant create(Restaurant restaurant) {
-        return restaurantRepository.save(restaurant);
+    public Restaurant getByName(String name) {
+        return restaurantRepository.getByName(name);
     }
 
-    public Restaurant update(Restaurant restaurant) {
+    public Restaurant createOrUpdate(Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
     }
 
     public void delete(int id) {
-        restaurantRepository.deleteById(id);
+        restaurantRepository.delete(id);
     }
 }

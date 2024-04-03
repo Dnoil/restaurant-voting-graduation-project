@@ -13,23 +13,19 @@ public class DishService {
 
     private final DishRepository dishRepository;
 
-    public List<Dish> getAll() {
-        return dishRepository.findAll();
+    public List<Dish> getAll(int menuId) {
+        return dishRepository.getAllByMenuId(menuId);
     }
 
     public Dish get(int id) {
-        return dishRepository.getReferenceById(id);
+        return dishRepository.get(id);
     }
 
-    public Dish create(Dish dish) {
-        return dishRepository.save(dish);
-    }
-
-    public Dish update(Dish dish) {
+    public Dish createOrUpdate(Dish dish) {
         return dishRepository.save(dish);
     }
 
     public void delete(int id) {
-        dishRepository.deleteById(id);
+        dishRepository.delete(id);
     }
 }

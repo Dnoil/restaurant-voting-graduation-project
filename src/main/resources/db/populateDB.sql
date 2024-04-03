@@ -16,13 +16,13 @@ INSERT INTO restaurant (name, address)
 VALUES ('Cool Restaurant', '28 Cool street'),
        ('Cooler Restaurant', '29 Cool street');
 
-INSERT INTO menu (name, date, menu_restaurant)
+INSERT INTO menu (name, date, restaurant_id)
 VALUES ('Cool Menu', '2024-03-05 09:22:06', 0),
        ('Cooler Menu', '2024-03-05 09:20:00', 1);
 
-INSERT INTO dish (name, price, dish_menu)
+INSERT INTO dish (name, price, menu_id)
 VALUES ('Cool Dish', 199, 0),
        ('Cooler Dish', 200, 1);
 
-INSERT INTO vote (name, time, user_id, restaurant_id)
+INSERT INTO vote (name, voted_time, user_id, restaurant_id)
 VALUES ('first', now(), 0, 0);

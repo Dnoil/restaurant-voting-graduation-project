@@ -29,9 +29,14 @@ public class UserController {
         userService.get(id);
     }
 
+    @GetMapping("/{email}")
+    public void getByEmail(@PathVariable String email) {
+        userService.getByEmail(email);
+    }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> create(@RequestBody User user) {
-        User created = userService.create(user);
+        User created = userService.createOrUpdate(user);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/user/{id}")
@@ -43,7 +48,7 @@ public class UserController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestBody User user) {
-        userService.update(user);
+        userService.createOrUpdate(user);
     }
 
     @DeleteMapping("/{id}")

@@ -29,9 +29,14 @@ public class RestaurantController {
         restaurantService.get(id);
     }
 
+    @GetMapping("/{name}")
+    public void getByName(@PathVariable String name) {
+        restaurantService.getByName(name);
+    }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> create(@RequestBody Restaurant restaurant) {
-        Restaurant created = restaurantService.create(restaurant);
+        Restaurant created = restaurantService.createOrUpdate(restaurant);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/restaurant/{id}")
@@ -43,7 +48,7 @@ public class RestaurantController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestBody Restaurant restaurant) {
-        restaurantService.update(restaurant);
+        restaurantService.createOrUpdate(restaurant);
     }
 
     @DeleteMapping("/{id}")

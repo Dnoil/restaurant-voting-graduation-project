@@ -17,9 +17,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Vote extends BaseEntity {
 
-    @Column(name = "time", nullable = false)
+    @Column(name = "voted_time", nullable = false)
     @NotNull
-    private LocalDateTime time = LocalDateTime.now();
+    private LocalDateTime votedTime = LocalDateTime.now();
 
     @JoinColumn(name = "user_id", nullable = false)
     @OneToOne(fetch = FetchType.LAZY)
