@@ -1,16 +1,16 @@
 DELETE FROM user_role;
 DELETE FROM dish;
-DELETE FROM user;
+DELETE FROM users;
 DELETE FROM menu;
 DELETE FROM restaurant;
 
-INSERT INTO user (name, email, login, password)
+INSERT INTO users (name, email, login, password)
 VALUES ('User', 'user@yandex.ru', 'userlogin', 'password'),
        ('Admin', 'admin@gmail.com', 'adminlogin', 'admin');
 
 INSERT INTO user_role (user_id, role)
-VALUES (0, 'USER'),
-       (1, 'ADMIN');
+VALUES (0, 'ADMIN'),
+       (1, 'USER');
 
 INSERT INTO restaurant (name, address)
 VALUES ('Cool Restaurant', '28 Cool street'),

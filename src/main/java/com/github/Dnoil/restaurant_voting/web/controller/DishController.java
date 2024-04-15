@@ -10,22 +10,24 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "/dish", consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/dishes", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DishController {
 
     private DishService dishService;
 
-    @GetMapping
-    public void getAll(int menuId) {
-        dishService.getAll(menuId);
+    @GetMapping("/menu")
+    public List<Dish> getAll(@RequestParam int id) {
+        return dishService.getAll(id);
     }
 
+    //TODO is it necessary?
     @GetMapping("/{id}")
-    public void get(@PathVariable int id) {
-        dishService.get(id);
+    public Dish get(@PathVariable int id) {
+        return dishService.get(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -33,7 +35,7 @@ public class DishController {
         Dish created = dishService.createOrUpdate(dish);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/dish/{id}")
+                .path("/dishes/{id}")
                 .buildAndExpand(created.getId()).toUri();
 
         return ResponseEntity.created(uriOfNewResource).body(created);

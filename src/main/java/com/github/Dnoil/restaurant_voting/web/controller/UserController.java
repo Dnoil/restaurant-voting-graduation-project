@@ -6,40 +6,42 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
-@Controller
+@RestController
 @AllArgsConstructor
-@RequestMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
 
     private UserService userService;
 
     @GetMapping
-    public void getAll() {
-        userService.getAll();
+    public List<User> getAll() {
+        return userService.getAll();
     }
 
     @GetMapping("/{id}")
-    public void get(@PathVariable int id) {
-        userService.get(id);
+    public User get(@PathVariable int id) {
+        return userService.get(id);
     }
 
-    @GetMapping("/{email}")
-    public void getByEmail(@PathVariable String email) {
-        userService.getByEmail(email);
+    @GetMapping("/email")
+    public User getByEmail(@RequestParam String value) {
+        return userService.getByEmail(value);
     }
+
+    //TODO maybe add more getters by name login etc
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> create(@RequestBody User user) {
         User created = userService.createOrUpdate(user);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/user/{id}")
+                .path("/users/{id}")
                 .buildAndExpand(created.getId()).toUri();
 
         return ResponseEntity.created(uriOfNewResource).body(created);

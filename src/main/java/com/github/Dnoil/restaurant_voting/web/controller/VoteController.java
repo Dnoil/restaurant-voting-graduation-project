@@ -10,27 +10,23 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "/vote", consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/votes", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VoteController {
 
     private VoteService voteService;
 
     @GetMapping
-    public void getAll() {
-        voteService.getAll();
-    }
-
-    @GetMapping("no-votes")
-    public void getAllWithNoVotes() {
-        voteService.getAllWithNoVotes();
+    public List<Vote> getAll() {
+         return voteService.getAll();
     }
 
     @GetMapping("/{id}")
-    public void get(@PathVariable int id) {
-        voteService.get(id);
+    public Vote get(@PathVariable int id) {
+        return voteService.get(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -38,7 +34,7 @@ public class VoteController {
         Vote created = voteService.createOrUpdate(vote);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/vote/{id}")
+                .path("/votes/{id}")
                 .buildAndExpand(created.getId()).toUri();
 
         return ResponseEntity.created(uriOfNewResource).body(created);

@@ -1,9 +1,12 @@
 package com.github.Dnoil.restaurant_voting.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.domain.Persistable;
 import org.springframework.util.Assert;
@@ -14,6 +17,8 @@ import static com.github.Dnoil.restaurant_voting.util.Util.getEffectiveClass;
 @Access(AccessType.FIELD)
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public abstract class BaseEntity implements Persistable<Integer> {
 
     @Id
@@ -30,14 +35,10 @@ public abstract class BaseEntity implements Persistable<Integer> {
         return id;
     }
 
+    @JsonIgnore
     @Override
     public boolean isNew() {
         return this.id == null;
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + ":" + id;
     }
 
     @Override

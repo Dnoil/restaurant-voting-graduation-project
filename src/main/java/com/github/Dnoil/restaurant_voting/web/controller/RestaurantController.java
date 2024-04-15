@@ -6,32 +6,32 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
-@Controller
+@RestController
 @AllArgsConstructor
-@RequestMapping(value = "/restaurant", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/restaurants", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantController {
 
     private RestaurantService restaurantService;
 
     @GetMapping
-    public void getAll() {
-        restaurantService.getAll();
+    public List<Restaurant> getAll() {
+        return restaurantService.getAll();
     }
 
     @GetMapping("/{id}")
-    public void get(@PathVariable int id) {
-        restaurantService.get(id);
+    public Restaurant get(@PathVariable int id) {
+        return restaurantService.get(id);
     }
 
-    @GetMapping("/{name}")
-    public void getByName(@PathVariable String name) {
-        restaurantService.getByName(name);
+    @GetMapping("/name")
+    public Restaurant getByName(@RequestParam String value) {
+        return restaurantService.getByName(value);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -39,7 +39,7 @@ public class RestaurantController {
         Restaurant created = restaurantService.createOrUpdate(restaurant);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/restaurant/{id}")
+                .path("/restaurants/{id}")
                 .buildAndExpand(created.getId()).toUri();
 
         return ResponseEntity.created(uriOfNewResource).body(created);

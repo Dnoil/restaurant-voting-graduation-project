@@ -14,11 +14,12 @@ public class UserService {
     private final UserRepository userRepository;
 
     public List<User> getAll() {
-        return userRepository.getAll();
+        return userRepository.findAll();
     }
 
+    //TODO throw exception
     public User get(int id) {
-        return userRepository.get(id);
+        return userRepository.findById(id).orElseThrow();
     }
 
     public User getByEmail(String email) {
@@ -30,6 +31,6 @@ public class UserService {
     }
 
     public void delete(int id) {
-        userRepository.delete(id);
+        userRepository.deleteById(id);
     }
 }

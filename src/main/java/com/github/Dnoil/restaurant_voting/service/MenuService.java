@@ -5,14 +5,21 @@ import com.github.Dnoil.restaurant_voting.repository.MenuRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
+
 @Service
 @AllArgsConstructor
 public class MenuService {
 
     private final MenuRepository menuRepository;
 
+    //FIXME
     public Menu get(int restaurantId) {
-        return menuRepository.getByRestaurantId(restaurantId);
+        Menu menu = menuRepository.getByRestaurantId(restaurantId);
+        if (menu == null) {
+            throw new NoSuchElementException();
+        }
+        return menu;
     }
 
     public Menu createOrUpdate(Menu menu) {
@@ -20,6 +27,6 @@ public class MenuService {
     }
 
     public void delete(int id) {
-        menuRepository.delete(id);
+        menuRepository.deleteById(id);
     }
 }

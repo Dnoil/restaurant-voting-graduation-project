@@ -17,8 +17,9 @@ public class DishService {
         return dishRepository.getAllByMenuId(menuId);
     }
 
+    //TODO throw exception
     public Dish get(int id) {
-        return dishRepository.get(id);
+        return dishRepository.findById(id).orElseThrow();
     }
 
     public Dish createOrUpdate(Dish dish) {
@@ -26,6 +27,6 @@ public class DishService {
     }
 
     public void delete(int id) {
-        dishRepository.delete(id);
+        dishRepository.deleteById(id);
     }
 }

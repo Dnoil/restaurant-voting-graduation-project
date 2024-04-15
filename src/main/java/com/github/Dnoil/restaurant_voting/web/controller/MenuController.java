@@ -6,22 +6,21 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
-@Controller
+@RestController
 @AllArgsConstructor
-@RequestMapping(value = "/menu", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/menus", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MenuController {
 
     private MenuService menuService;
 
-    @GetMapping("/{id}")
-    public void get(@PathVariable("id") int restaurantId) {
-        menuService.get(restaurantId);
+    @GetMapping("/restaurant")
+    public Menu get(@RequestParam int id) {
+        return menuService.get(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -29,7 +28,7 @@ public class MenuController {
         Menu created = menuService.createOrUpdate(menu);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/menu/{id}")
+                .path("/menus/{id}")
                 .buildAndExpand(created.getId()).toUri();
 
         return ResponseEntity.created(uriOfNewResource).body(created);
@@ -46,4 +45,5 @@ public class MenuController {
     public void delete(@PathVariable int id) {
         menuService.delete(id);
     }
+
 }

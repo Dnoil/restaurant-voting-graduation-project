@@ -2,6 +2,7 @@ package com.github.Dnoil.restaurant_voting.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Vote extends BaseEntity {
 
     @Column(name = "voted_time", nullable = false)
@@ -22,20 +24,32 @@ public class Vote extends BaseEntity {
     private LocalDateTime votedTime = LocalDateTime.now();
 
     @JoinColumn(name = "user_id", nullable = false)
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @NotNull
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @JoinColumn(name = "restaurant_id", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @NotNull
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
-    public Vote(User user, Restaurant restaurant) {
+    public Vote(Integer id, User user, Restaurant restaurant) {
+        super.setId(id);
         super.setName(user.getName() + "'s vote");
         this.user = user;
         this.restaurant = restaurant;
+    }
+
+    @Override
+    public String toString() {
+        return "Vote{" +
+                "id='" + getId() + '\'' +
+                ", name='" + getName() + '\'' +
+                ", votedTime=" + votedTime +
+               ", user=" + user +
+               ", restaurant=" + restaurant +
+               '}';
     }
 }

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @AllArgsConstructor
@@ -14,15 +15,15 @@ public class VoteService {
     private final VoteRepository voteRepository;
 
     public List<Vote> getAll() {
-        return voteRepository.getAll();
-    }
-
-    public List<Vote> getAllWithNoVotes() {
-        return voteRepository.getAllWithNoVotes();
+        return voteRepository.findAll();
     }
 
     public Vote get(int userId) {
-        return voteRepository.getByUserId(userId);
+        Vote vote = voteRepository.getByUserId(userId);
+        if (vote == null) {
+            throw new NoSuchElementException();
+        }
+        return vote;
     }
 
     public Vote createOrUpdate(Vote vote) {
@@ -30,6 +31,6 @@ public class VoteService {
     }
 
     public void delete(int id) {
-        voteRepository.delete(id);
+        voteRepository.deleteById(id);
     }
 }
