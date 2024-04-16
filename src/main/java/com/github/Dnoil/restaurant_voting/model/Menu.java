@@ -1,6 +1,5 @@
 package com.github.Dnoil.restaurant_voting.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -26,13 +25,14 @@ public class Menu extends BaseEntity {
     @NotNull
     private LocalDate date;
 
-    //@JsonManagedReference(value = "restaurant-menu")
+    @JsonManagedReference(value = "restaurant-menu")
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OneToOne(fetch = FetchType.EAGER)
     @NotNull
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
-    @JsonBackReference
+    @JsonManagedReference(value = "menu-dish")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Dish> dishes;

@@ -1,9 +1,7 @@
 package com.github.Dnoil.restaurant_voting.service;
 
 import com.github.Dnoil.restaurant_voting.model.Restaurant;
-import com.github.Dnoil.restaurant_voting.model.Vote;
 import com.github.Dnoil.restaurant_voting.repository.RestaurantRepository;
-import com.github.Dnoil.restaurant_voting.repository.VoteRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +13,13 @@ public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
 
-    private final VoteRepository voteRepository;
-
     public List<Restaurant> getAll() {
         return restaurantRepository.findAll();
     }
 
-    //TODO implement
+    //TODO it in service or in repository
     public List<Restaurant> getAllByVotes() {
-        List<Vote> votes = voteRepository.findAll();
-        return null;
+        return restaurantRepository.getAllByVotes();
     }
 
     //TODO implement exception

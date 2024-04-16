@@ -48,8 +48,8 @@ public class Vote extends BaseEntity {
                 "id='" + getId() + '\'' +
                 ", name='" + getName() + '\'' +
                 ", votedTime=" + votedTime +
-               ", user=" + user +
-               ", restaurant=" + restaurant +
-               '}';
+                ", user=" + user +
+                ", restaurant=" + restaurant +
+                '}';
     }
 }

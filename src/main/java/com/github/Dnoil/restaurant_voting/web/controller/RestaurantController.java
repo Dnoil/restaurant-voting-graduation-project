@@ -24,6 +24,11 @@ public class RestaurantController {
         return restaurantService.getAll();
     }
 
+    @GetMapping("/by-votes")
+    public List<Restaurant> getAllByVotes() {
+        return restaurantService.getAllByVotes();
+    }
+
     @GetMapping("/{id}")
     public Restaurant get(@PathVariable int id) {
         return restaurantService.get(id);

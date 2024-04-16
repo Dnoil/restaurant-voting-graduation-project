@@ -61,7 +61,7 @@ public class DishControllerTest extends AbstractControllerTest {
     void createWithLocation() throws Exception {
         restaurantService.createOrUpdate(RestaurantTestData.getNew());
         menuService.createOrUpdate(MenuTestData.getNew());
-        Dish newDish = getNew();
+        Dish newDish = dishService.createOrUpdate(getNew());
         ResultActions action = perform(MockMvcRequestBuilders.post(DISHES_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newDish)))

@@ -8,8 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Set;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "restaurant")
@@ -26,11 +26,8 @@ public class Restaurant extends BaseEntity {
 
     @JsonBackReference(value = "restaurant-menu")
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Menu menu;
-
-    @JsonBackReference(value = "restaurant-vote")
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
-    private Set<Vote> votes;
 
     public Restaurant(Integer id, String name, String address) {
         super(id, name);

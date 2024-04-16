@@ -2,6 +2,7 @@ package com.github.Dnoil.restaurant_voting.web;
 
 import com.github.Dnoil.restaurant_voting.data.RestaurantTestData;
 import com.github.Dnoil.restaurant_voting.model.Menu;
+import com.github.Dnoil.restaurant_voting.model.Restaurant;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
@@ -27,8 +28,6 @@ public class MenuControllerTest extends AbstractControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MENU_MATCHER.contentJson(menu1));
     }
-
-    //TODO fix
     @Test
     void delete() throws Exception {
         perform(MockMvcRequestBuilders.delete(MENUS_URL + "/" + MENU_ID))
@@ -44,12 +43,12 @@ public class MenuControllerTest extends AbstractControllerTest {
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isNoContent());
 
-        MENU_MATCHER.assertMatch(menuService.get(MENU_ID), updated);
+        MENU_MATCHER.assertMatch(menuService.get(RESTAURANT_ID), updated);
     }
 
     @Test
     void createWithLocation() throws Exception {
-        restaurantService.createOrUpdate(RestaurantTestData.getNew());
+        Restaurant newRestaurant = restaurantService.createOrUpdate(RestaurantTestData.getNew());
         Menu newMenu = getNew();
         ResultActions action = perform(MockMvcRequestBuilders.post(MENUS_URL)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -60,6 +59,6 @@ public class MenuControllerTest extends AbstractControllerTest {
         int newId = created.id();
         newMenu.setId(newId);
         MENU_MATCHER.assertMatch(created, newMenu);
-        MENU_MATCHER.assertMatch(menuService.get(newId), newMenu);
+        MENU_MATCHER.assertMatch(menuService.get(newRestaurant.id()), newMenu);
     }
 }

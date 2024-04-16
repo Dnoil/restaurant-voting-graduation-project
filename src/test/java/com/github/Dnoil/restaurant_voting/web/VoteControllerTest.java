@@ -50,7 +50,6 @@ public class VoteControllerTest extends AbstractControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isNoContent());
-
         VOTE_MATCHER.assertMatch(voteService.get(USER_ID), updated);
     }
 

@@ -24,7 +24,6 @@ public class DishController {
         return dishService.getAll(id);
     }
 
-    //TODO is it necessary?
     @GetMapping("/{id}")
     public Dish get(@PathVariable int id) {
         return dishService.get(id);

@@ -1,5 +1,6 @@
 package com.github.Dnoil.restaurant_voting.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class Dish extends BaseEntity {
     @Range(min = 0)
     private BigDecimal price;
 
+    @JsonBackReference(value = "menu-dish")
     @JoinColumn(name = "menu_id", nullable = false)
     @ManyToOne(fetch = FetchType.EAGER)
     @NotNull

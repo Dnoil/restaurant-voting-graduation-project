@@ -1,6 +1,5 @@
 package com.github.Dnoil.restaurant_voting.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -48,10 +47,6 @@ public class User extends BaseEntity {
     @Column(name = "enabled", nullable = false)
     private boolean enabled = true;
 
-    @JsonBackReference
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
-    private Vote vote;
-
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
             uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role"}, name = "unq_user_role")})
@@ -89,7 +84,6 @@ public class User extends BaseEntity {
                 ", password='" + password + '\'' +
                 ", registered=" + registered +
                 ", enabled=" + enabled +
-                ", vote=" + vote +
                 ", roles=" + roles +
                 '}';
     }

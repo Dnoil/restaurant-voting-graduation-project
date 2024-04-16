@@ -21,7 +21,6 @@ public class DishTestData {
     public static final Dish dish2_2 = new Dish(DISH_ID + 3, "Second Dish of Second Menu", new BigDecimal(250), menu2);
 
     public static final List<Dish> dishes1 = List.of(dish1_1, dish1_2);
-    public static final List<Dish> dishes2 = List.of(dish2_1, dish2_2);
 
     public static Dish getNew() {
         return new Dish(DISH_ID + 4, "New Dish of First Menu", new BigDecimal(300), MenuTestData.getNew());
