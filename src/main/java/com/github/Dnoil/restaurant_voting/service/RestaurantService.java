@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.github.Dnoil.restaurant_voting.util.ValidationUtil.checkNotFoundWithId;
+
 @Service
 @AllArgsConstructor
 public class RestaurantService {
@@ -36,6 +38,6 @@ public class RestaurantService {
     }
 
     public void delete(int id) {
-        restaurantRepository.deleteById(id);
+        checkNotFoundWithId(restaurantRepository.delete(id), id);
     }
 }

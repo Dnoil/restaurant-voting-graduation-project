@@ -1,13 +1,27 @@
 package com.github.Dnoil.restaurant_voting.to;
 
-import com.github.Dnoil.restaurant_voting.model.BaseEntity;
+import com.github.Dnoil.restaurant_voting.HasId;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-public class BaseTo {
-    private final Integer id;
-    private final String name;
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public abstract class BaseTo implements HasId {
 
-    public BaseTo(BaseEntity baseEntity) {
-        this.id = baseEntity.getId();
-        this.name = baseEntity.getName();
+    private Integer id;
+
+    @NotBlank
+    @Size(min = 1, max = 128)
+    private String name;
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

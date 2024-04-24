@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
 
 import static com.github.Dnoil.restaurant_voting.data.DishTestData.*;
 import static com.github.Dnoil.restaurant_voting.data.MenuTestData.menu1;
@@ -18,6 +21,7 @@ import static com.github.Dnoil.restaurant_voting.data.RestaurantTestData.restaur
 import static com.github.Dnoil.restaurant_voting.data.UserTestData.*;
 import static com.github.Dnoil.restaurant_voting.data.VoteTestData.vote1;
 import static com.github.Dnoil.restaurant_voting.data.VoteTestData.vote2;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -25,25 +29,35 @@ import static com.github.Dnoil.restaurant_voting.data.VoteTestData.vote2;
 public abstract class AbstractControllerTest {
 
     @Autowired
-    UserService userService;
+    protected UserService userService;
 
     @Autowired
-    RestaurantService restaurantService;
+    protected RestaurantService restaurantService;
 
     @Autowired
-    MenuService menuService;
+    protected MenuService menuService;
 
     @Autowired
-    DishService dishService;
+    protected DishService dishService;
 
     @Autowired
-    VoteService voteService;
+    protected VoteService voteService;
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private WebApplicationContext webApplicationContext;
 
     @PostConstruct
     protected void loadData() {
-        userService.createOrUpdate(admin);
-        userService.createOrUpdate(user1);
-        userService.createOrUpdate(user2);
+        mockMvc = MockMvcBuilders
+                .webAppContextSetup(webApplicationContext)
+                .apply(springSecurity())
+                .build();
+        userService.create(admin);
+        userService.create(user1);
+        userService.create(user2);
         restaurantService.createOrUpdate(restaurant1);
         restaurantService.createOrUpdate(restaurant2);
         menuService.createOrUpdate(menu1);
@@ -55,26 +69,6 @@ public abstract class AbstractControllerTest {
         voteService.createOrUpdate(vote1);
         voteService.createOrUpdate(vote2);
     }
-//    private static final CharacterEncodingFilter CHARACTER_ENCODING_FILTER = new CharacterEncodingFilter();
-
-//    static {
-//        CHARACTER_ENCODING_FILTER.setEncoding("UTF-8");
-//        CHARACTER_ENCODING_FILTER.setForceEncoding(true);
-//    }
-
-    @Autowired
-    private MockMvc mockMvc;
-
-//    @Autowired
-//    private WebApplicationContext webApplicationContext;
-
-//    @PostConstruct
-//    private void postConstruct() {
-//        mockMvc = MockMvcBuilders
-//                .webAppContextSetup(webApplicationContext)
-//                .addFilter(CHARACTER_ENCODING_FILTER)
-//                .build();
-//    }
 
     protected ResultActions perform(MockHttpServletRequestBuilder builder) throws Exception {
         return mockMvc.perform(builder);

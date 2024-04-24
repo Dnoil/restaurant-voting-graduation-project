@@ -1,6 +1,6 @@
 package com.github.Dnoil.restaurant_voting.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.Dnoil.restaurant_voting.HasId;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -8,8 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.domain.Persistable;
-import org.springframework.util.Assert;
 
 import static com.github.Dnoil.restaurant_voting.util.Util.getEffectiveClass;
 
@@ -19,7 +17,7 @@ import static com.github.Dnoil.restaurant_voting.util.Util.getEffectiveClass;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class BaseEntity implements Persistable<Integer> {
+public abstract class BaseEntity implements HasId {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,17 +27,6 @@ public abstract class BaseEntity implements Persistable<Integer> {
     @NotBlank
     @Size(min = 1, max = 128)
     private String name;
-
-    public int id() {
-        Assert.notNull(id, "Entity must have an id");
-        return id;
-    }
-
-    @JsonIgnore
-    @Override
-    public boolean isNew() {
-        return this.id == null;
-    }
 
     @Override
     public boolean equals(Object o) {

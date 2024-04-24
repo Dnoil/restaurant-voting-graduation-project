@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import static com.github.Dnoil.restaurant_voting.util.ValidationUtil.checkNotFoundWithId;
+
 @Service
 @AllArgsConstructor
 public class VoteService {
@@ -31,6 +33,6 @@ public class VoteService {
     }
 
     public void delete(int id) {
-        voteRepository.deleteById(id);
+        checkNotFoundWithId(voteRepository.delete(id), id);
     }
 }
