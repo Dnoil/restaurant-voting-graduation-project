@@ -2,6 +2,7 @@ package com.github.Dnoil.restaurant_voting.data;
 
 import com.github.Dnoil.restaurant_voting.MatcherFactory;
 import com.github.Dnoil.restaurant_voting.model.Dish;
+import com.github.Dnoil.restaurant_voting.model.Menu;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -22,8 +23,8 @@ public class DishTestData {
 
     public static final List<Dish> dishes1 = List.of(dish1_1, dish1_2);
 
-    public static Dish getNew() {
-        return new Dish(DISH_ID + 4, "New Dish of First Menu", new BigDecimal(300), MenuTestData.getNew());
+    public static Dish getNew(Menu newMenu) {
+        return new Dish(DISH_ID + 4, "New Dish of First Menu", new BigDecimal(300), newMenu);
     }
 
     public static Dish getUpdated() {

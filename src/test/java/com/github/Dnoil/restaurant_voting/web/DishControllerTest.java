@@ -2,17 +2,19 @@ package com.github.Dnoil.restaurant_voting.web;
 
 import com.github.Dnoil.restaurant_voting.data.MenuTestData;
 import com.github.Dnoil.restaurant_voting.data.RestaurantTestData;
+import com.github.Dnoil.restaurant_voting.error.NotFoundException;
 import com.github.Dnoil.restaurant_voting.model.Dish;
+import com.github.Dnoil.restaurant_voting.model.Menu;
+import com.github.Dnoil.restaurant_voting.model.Restaurant;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.util.NoSuchElementException;
-
 import static com.github.Dnoil.restaurant_voting.data.DishTestData.*;
 import static com.github.Dnoil.restaurant_voting.data.MenuTestData.MENU_ID;
+import static com.github.Dnoil.restaurant_voting.data.UserTestData.ADMIN_MAIL;
 import static com.github.Dnoil.restaurant_voting.data.UserTestData.USER1_MAIL;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -44,15 +46,15 @@ public class DishControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    @WithUserDetails(value = USER1_MAIL)
+    @WithUserDetails(value = ADMIN_MAIL)
     void delete() throws Exception {
         perform(MockMvcRequestBuilders.delete(DISHES_URL + "/" + DISH_ID))
                 .andExpect(status().isNoContent());
-        assertThrows(NoSuchElementException.class, () -> dishService.get(DISH_ID));
+        assertThrows(NotFoundException.class, () -> dishService.get(DISH_ID));
     }
 
     @Test
-    @WithUserDetails(value = USER1_MAIL)
+    @WithUserDetails(value = ADMIN_MAIL)
     void update() throws Exception {
         Dish updated = getUpdated();
         perform(MockMvcRequestBuilders.put(DISHES_URL + "/" + DISH_ID)
@@ -64,11 +66,11 @@ public class DishControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    @WithUserDetails(value = USER1_MAIL)
+    @WithUserDetails(value = ADMIN_MAIL)
     void createWithLocation() throws Exception {
-        restaurantService.createOrUpdate(RestaurantTestData.getNew());
-        menuService.createOrUpdate(MenuTestData.getNew());
-        Dish newDish = dishService.createOrUpdate(getNew());
+        Restaurant newRestaurant = restaurantService.createOrUpdate(RestaurantTestData.getNew());
+        Menu newMenu = menuService.createOrUpdate(MenuTestData.getNew(newRestaurant));
+        Dish newDish = dishService.createOrUpdate(getNew(newMenu));
         ResultActions action = perform(MockMvcRequestBuilders.post(DISHES_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newDish)))

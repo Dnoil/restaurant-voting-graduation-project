@@ -1,8 +1,11 @@
 package com.github.Dnoil.restaurant_voting.service;
 
+import com.github.Dnoil.restaurant_voting.error.NotFoundException;
 import com.github.Dnoil.restaurant_voting.model.Restaurant;
 import com.github.Dnoil.restaurant_voting.repository.RestaurantRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,28 +18,29 @@ public class RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
 
+    @Cacheable(value = "restaurants")
     public List<Restaurant> getAll() {
         return restaurantRepository.findAll();
     }
 
-    //TODO it in service or in repository
     public List<Restaurant> getAllByVotes() {
         return restaurantRepository.getAllByVotes();
     }
 
-    //TODO implement exception
     public Restaurant get(int id) {
-        return restaurantRepository.findById(id).orElseThrow();
+        return restaurantRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found dish with id=" + id));
     }
 
     public Restaurant getByName(String name) {
         return restaurantRepository.getByName(name);
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     public Restaurant createOrUpdate(Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     public void delete(int id) {
         checkNotFoundWithId(restaurantRepository.delete(id), id);
     }

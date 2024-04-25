@@ -1,9 +1,6 @@
 package com.github.Dnoil.restaurant_voting.security;
 
 import com.github.Dnoil.restaurant_voting.model.Role;
-import com.github.Dnoil.restaurant_voting.model.User;
-import com.github.Dnoil.restaurant_voting.service.UserService;
-import com.github.Dnoil.restaurant_voting.util.ValidationUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -14,13 +11,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-import java.util.Optional;
 
 @Configuration
 @EnableWebSecurity
@@ -28,8 +21,6 @@ import java.util.Optional;
 @AllArgsConstructor
 public class SecurityConfig {
     public static final PasswordEncoder PASSWORD_ENCODER = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-
-    private final UserService userService;
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -39,7 +30,10 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.securityMatcher("/**").authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/admin/**").hasAuthority(Role.ADMIN.getAuthority())
+                        .requestMatchers(HttpMethod.GET, "/restaurants/**", "/dishes/**")
+                            .hasAuthority(Role.USER.getAuthority())
+                        .requestMatchers("/admin/**", "/restaurants/**", "/menus/**", "/dishes/**")
+                            .hasAuthority(Role.ADMIN.getAuthority())
                         .requestMatchers(HttpMethod.POST, "/user").anonymous()
                         .requestMatchers("/**").authenticated())
                 .httpBasic(Customizer.withDefaults())

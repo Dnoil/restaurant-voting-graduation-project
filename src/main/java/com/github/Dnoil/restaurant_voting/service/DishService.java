@@ -1,5 +1,6 @@
 package com.github.Dnoil.restaurant_voting.service;
 
+import com.github.Dnoil.restaurant_voting.error.NotFoundException;
 import com.github.Dnoil.restaurant_voting.model.Dish;
 import com.github.Dnoil.restaurant_voting.repository.DishRepository;
 import lombok.AllArgsConstructor;
@@ -19,9 +20,8 @@ public class DishService {
         return dishRepository.getAllByMenuId(menuId);
     }
 
-    //TODO throw exception
     public Dish get(int id) {
-        return dishRepository.findById(id).orElseThrow();
+        return dishRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found dish with id=" + id));
     }
 
     public Dish createOrUpdate(Dish dish) {

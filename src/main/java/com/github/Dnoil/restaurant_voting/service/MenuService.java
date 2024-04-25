@@ -5,8 +5,6 @@ import com.github.Dnoil.restaurant_voting.repository.MenuRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
-
 import static com.github.Dnoil.restaurant_voting.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
@@ -15,13 +13,8 @@ public class MenuService {
 
     private final MenuRepository menuRepository;
 
-    //FIXME
     public Menu get(int restaurantId) {
-        Menu menu = menuRepository.getByRestaurantId(restaurantId);
-        if (menu == null) {
-            throw new NoSuchElementException();
-        }
-        return menu;
+        return checkNotFoundWithId(menuRepository.getByRestaurantId(restaurantId), restaurantId);
     }
 
     public Menu createOrUpdate(Menu menu) {

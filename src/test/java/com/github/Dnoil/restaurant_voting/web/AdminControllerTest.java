@@ -2,14 +2,12 @@ package com.github.Dnoil.restaurant_voting.web;
 
 import com.github.Dnoil.restaurant_voting.error.NotFoundException;
 import com.github.Dnoil.restaurant_voting.model.User;
-import com.github.Dnoil.restaurant_voting.web.AbstractControllerTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static com.github.Dnoil.restaurant_voting.TestUtil.userHttpBasic;
 import static com.github.Dnoil.restaurant_voting.data.UserTestData.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

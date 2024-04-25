@@ -7,7 +7,6 @@ import com.github.Dnoil.restaurant_voting.to.UserTo;
 import com.github.Dnoil.restaurant_voting.web.JsonUtil;
 
 import java.util.Collections;
-import java.util.List;
 
 public class UserTestData {
     public static final MatcherFactory.Matcher<User> USER_MATCHER = MatcherFactory.usingEqualsComparator(User.class);
@@ -26,7 +25,7 @@ public class UserTestData {
             "12345", Role.USER);
     public static final User user2 = new User(ANOTHER_USER_ID, "Some Another User", USER2_MAIL, "another_user123",
             "123123", Role.USER);
-    public static final UserTo userTo = new UserTo(null, "newName", "user@yandex.ru", "newLogin","newPassword");
+    public static final UserTo userTo = new UserTo(null, "newName", "user@yandex.ru", "newLogin", "newPassword");
 
     public static User getNew() {
         return new User(null, "New User", "new@gmail.com", "new_user", "123456", Role.USER);

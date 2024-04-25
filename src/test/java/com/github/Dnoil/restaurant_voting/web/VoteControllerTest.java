@@ -1,13 +1,12 @@
 package com.github.Dnoil.restaurant_voting.web;
 
+import com.github.Dnoil.restaurant_voting.error.NotFoundException;
 import com.github.Dnoil.restaurant_voting.model.Vote;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
-import java.util.NoSuchElementException;
 
 import static com.github.Dnoil.restaurant_voting.data.UserTestData.USER1_MAIL;
 import static com.github.Dnoil.restaurant_voting.data.UserTestData.USER_ID;
@@ -45,7 +44,7 @@ public class VoteControllerTest extends AbstractControllerTest {
     void delete() throws Exception {
         perform(MockMvcRequestBuilders.delete(VOTES_URL + "/" + VOTE_ID))
                 .andExpect(status().isNoContent());
-        assertThrows(NoSuchElementException.class, () -> voteService.get(VOTE_ID));
+        assertThrows(NotFoundException.class, () -> voteService.get(VOTE_ID));
     }
 
     @Test
