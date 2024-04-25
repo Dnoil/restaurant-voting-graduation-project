@@ -5,6 +5,7 @@ import com.github.Dnoil.restaurant_voting.model.User;
 import com.github.Dnoil.restaurant_voting.web.AbstractControllerTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -25,16 +26,25 @@ public class AdminControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @WithUserDetails(value = USER1_MAIL)
     void getForbidden() throws Exception {
-        perform(MockMvcRequestBuilders.get(ADMIN_URL)
-                .with(userHttpBasic(user1)))
+        perform(MockMvcRequestBuilders.get(ADMIN_URL))
                 .andExpect(status().isForbidden());
     }
 
     @Test
+    @WithUserDetails(value = ADMIN_MAIL)
+    void getAll() throws Exception {
+        perform(MockMvcRequestBuilders.get(ADMIN_URL))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(USER_MATCHER.contentJson(admin, user1, user2));
+    }
+
+    @Test
+    @WithUserDetails(value = ADMIN_MAIL)
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(ADMIN_URL + "/" + ADMIN_ID)
-                .with(userHttpBasic(admin)))
+        perform(MockMvcRequestBuilders.get(ADMIN_URL + "/" + ADMIN_ID))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -42,6 +52,7 @@ public class AdminControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @WithUserDetails(value = ADMIN_MAIL)
     void getByEmail() throws Exception {
         perform(MockMvcRequestBuilders.get(ADMIN_URL + "/email?value=" + user1.getEmail()))
                 .andExpect(status().isOk())
@@ -50,11 +61,11 @@ public class AdminControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @WithUserDetails(value = ADMIN_MAIL)
     void createWithLocation() throws Exception {
         User newUser = getNew();
         ResultActions action = perform(MockMvcRequestBuilders.post(ADMIN_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(admin))
                 .content(jsonWithPassword(newUser, newUser.getPassword())))
                 .andExpect(status().isCreated());
 
@@ -66,11 +77,11 @@ public class AdminControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @WithUserDetails(value = ADMIN_MAIL)
     void update() throws Exception {
         User updated = getUpdated();
         perform(MockMvcRequestBuilders.put(ADMIN_URL + "/" + USER_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(admin))
                 .content(jsonWithPassword(updated, updated.getPassword())))
                 .andExpect(status().isNoContent());
 
@@ -78,9 +89,9 @@ public class AdminControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @WithUserDetails(value = ADMIN_MAIL)
     void delete() throws Exception {
-        perform(MockMvcRequestBuilders.delete(ADMIN_URL + "/" + USER_ID)
-                .with(userHttpBasic(admin)))
+        perform(MockMvcRequestBuilders.delete(ADMIN_URL + "/" + USER_ID))
                 .andDo(print())
                 .andExpect(status().isNoContent());
         assertThrows(NotFoundException.class, () -> userService.get(USER_ID));

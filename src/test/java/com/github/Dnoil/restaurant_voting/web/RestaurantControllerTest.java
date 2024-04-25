@@ -3,12 +3,14 @@ package com.github.Dnoil.restaurant_voting.web;
 import com.github.Dnoil.restaurant_voting.model.Restaurant;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.NoSuchElementException;
 
 import static com.github.Dnoil.restaurant_voting.data.RestaurantTestData.*;
+import static com.github.Dnoil.restaurant_voting.data.UserTestData.USER1_MAIL;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -18,6 +20,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
     private static final String RESTAURANTS_URL = "/restaurants";
 
     @Test
+    @WithUserDetails(value = USER1_MAIL)
     void getAll() throws Exception {
         perform(MockMvcRequestBuilders.get(RESTAURANTS_URL))
                 .andExpect(status().isOk())
@@ -27,6 +30,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @WithUserDetails(value = USER1_MAIL)
     void getAllByVotes() throws Exception {
         perform(MockMvcRequestBuilders.get(RESTAURANTS_URL + "/by-votes" ))
                 .andExpect(status().isOk())
@@ -36,6 +40,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @WithUserDetails(value = USER1_MAIL)
     void get() throws Exception {
         perform(MockMvcRequestBuilders.get(RESTAURANTS_URL + "/" + RESTAURANT_ID))
                 .andExpect(status().isOk())
@@ -45,6 +50,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @WithUserDetails(value = USER1_MAIL)
     void getByName() throws Exception {
         perform(MockMvcRequestBuilders.get(RESTAURANTS_URL + "/name?value=" + restaurant1.getName()))
                 .andExpect(status().isOk())
@@ -53,6 +59,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @WithUserDetails(value = USER1_MAIL)
     void delete() throws Exception {
         perform(MockMvcRequestBuilders.delete(RESTAURANTS_URL + "/" + RESTAURANT_ID))
                 .andExpect(status().isNoContent());
@@ -60,6 +67,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @WithUserDetails(value = USER1_MAIL)
     void update() throws Exception {
         Restaurant updated = getUpdated();
         perform(MockMvcRequestBuilders.put(RESTAURANTS_URL + "/" + RESTAURANT_ID)
@@ -71,6 +79,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @WithUserDetails(value = USER1_MAIL)
     void createWithLocation() throws Exception {
         Restaurant newRestaurant = getNew();
         ResultActions action = perform(MockMvcRequestBuilders.post(RESTAURANTS_URL)

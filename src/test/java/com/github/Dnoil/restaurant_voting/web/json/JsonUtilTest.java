@@ -2,17 +2,15 @@ package com.github.Dnoil.restaurant_voting.web.json;
 
 import com.github.Dnoil.restaurant_voting.model.Restaurant;
 import com.github.Dnoil.restaurant_voting.web.JsonUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 import static com.github.Dnoil.restaurant_voting.data.RestaurantTestData.*;
 
+@Slf4j
 public class JsonUtilTest {
-
-    private static final Logger log = LoggerFactory.getLogger(JsonUtilTest.class);
 
     @Test
     void readWriteValue() {

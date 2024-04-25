@@ -5,6 +5,7 @@ import com.github.Dnoil.restaurant_voting.to.UserTo;
 import com.github.Dnoil.restaurant_voting.util.UserUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -23,9 +24,9 @@ public class UserControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @WithUserDetails(value = USER1_MAIL)
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(USER_URL)
-                .with(userHttpBasic(user1)))
+        perform(MockMvcRequestBuilders.get(USER_URL))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(USER_MATCHER.contentJson(user1));
@@ -48,6 +49,7 @@ public class UserControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @WithUserDetails(value = USER1_MAIL)
     void update() throws Exception {
         UserTo updatedTo = userTo;
         perform(MockMvcRequestBuilders.put(USER_URL + "/" + USER_ID)
@@ -59,9 +61,9 @@ public class UserControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @WithUserDetails(value = USER1_MAIL)
     void delete() throws Exception {
-        perform(MockMvcRequestBuilders.delete(USER_URL)
-                .with(userHttpBasic(user1)))
+        perform(MockMvcRequestBuilders.delete(USER_URL))
                 .andExpect(status().isNoContent());
         USER_MATCHER.assertMatch(userService.getAll(), admin, user2);
     }

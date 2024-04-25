@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:hsqldb:mem:restaurant-voting;DB_CLOSE_DELAY=-1
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  jackson:
+    visibility:
+      field: any
+      getter: none
+      setter: none
+      is-getter: none

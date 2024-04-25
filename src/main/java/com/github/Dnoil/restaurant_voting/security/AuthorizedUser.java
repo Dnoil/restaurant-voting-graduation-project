@@ -1,37 +1,26 @@
 package com.github.Dnoil.restaurant_voting.security;
 
 import com.github.Dnoil.restaurant_voting.model.User;
-import com.github.Dnoil.restaurant_voting.to.UserTo;
-import com.github.Dnoil.restaurant_voting.util.UserUtil;
-
-import java.io.Serial;
+import lombok.Getter;
+import lombok.NonNull;
 
 public class AuthorizedUser extends org.springframework.security.core.userdetails.User {
-    @Serial
-    private static final long serialVersionUID = 1L;
 
-    private UserTo userTo;
+    @Getter
+    private final User user;
 
-    public AuthorizedUser(User user) {
-        super(user.getEmail(), user.getPassword(), user.isEnabled(), true, true, true, user.getRoles());
-        setTo(UserUtil.asTo(user));
+    public AuthorizedUser(@NonNull User user) {
+        super(user.getEmail(), user.getPassword(), user.getRoles());
+        this.user = user;
     }
 
-    public int getId() {
-        return userTo.id();
-    }
-
-    public void setTo(UserTo newTo) {
-        newTo.setPassword(null);
-        userTo = newTo;
-    }
-
-    public UserTo getUserTo() {
-        return userTo;
+    public int id() {
+        return user.id();
     }
 
     @Override
     public String toString() {
-        return userTo.toString();
+        return "AuthUser:" + id() + '[' + user.getEmail() + ']';
     }
+
 }

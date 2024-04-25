@@ -5,6 +5,7 @@ import com.github.Dnoil.restaurant_voting.model.Menu;
 import com.github.Dnoil.restaurant_voting.model.Restaurant;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -12,6 +13,7 @@ import java.util.NoSuchElementException;
 
 import static com.github.Dnoil.restaurant_voting.data.MenuTestData.*;
 import static com.github.Dnoil.restaurant_voting.data.RestaurantTestData.RESTAURANT_ID;
+import static com.github.Dnoil.restaurant_voting.data.UserTestData.USER1_MAIL;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -21,6 +23,7 @@ public class MenuControllerTest extends AbstractControllerTest {
     private static final String MENUS_URL = "/menus";
 
     @Test
+    @WithUserDetails(value = USER1_MAIL)
     void get() throws Exception {
         perform(MockMvcRequestBuilders.get(MENUS_URL + "/restaurant?id=" + RESTAURANT_ID))
                 .andExpect(status().isOk())
@@ -29,6 +32,7 @@ public class MenuControllerTest extends AbstractControllerTest {
                 .andExpect(MENU_MATCHER.contentJson(menu1));
     }
     @Test
+    @WithUserDetails(value = USER1_MAIL)
     void delete() throws Exception {
         perform(MockMvcRequestBuilders.delete(MENUS_URL + "/" + MENU_ID))
                 .andExpect(status().isNoContent());
@@ -36,6 +40,7 @@ public class MenuControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @WithUserDetails(value = USER1_MAIL)
     void update() throws Exception {
         Menu updated = getUpdated();
         perform(MockMvcRequestBuilders.put(MENUS_URL + "/" + MENU_ID)
@@ -47,6 +52,7 @@ public class MenuControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @WithUserDetails(value = USER1_MAIL)
     void createWithLocation() throws Exception {
         Restaurant newRestaurant = restaurantService.createOrUpdate(RestaurantTestData.getNew());
         Menu newMenu = getNew();

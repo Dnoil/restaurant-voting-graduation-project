@@ -7,11 +7,6 @@ import static java.util.Objects.requireNonNull;
 
 public class SecurityHandler {
 
-    public static int authUserId() {
-        return 2;
-        //return get().getUserTo().id();
-    }
-
     public static AuthorizedUser get() {
         return requireNonNull(safeGet(), "No authorized user found");
     }
@@ -21,8 +16,7 @@ public class SecurityHandler {
         if (auth == null) {
             return null;
         }
-        Object principal = auth.getPrincipal();
-        return (principal instanceof AuthorizedUser) ? (AuthorizedUser) principal : null;
+        return (auth.getPrincipal() instanceof AuthorizedUser au) ? au : null;
     }
 
 }

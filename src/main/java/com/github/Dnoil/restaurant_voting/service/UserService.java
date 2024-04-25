@@ -65,7 +65,7 @@ public class UserService implements UserDetailsService {
         return new AuthorizedUser(user);
     }
 
-    private User prepareAndSave(User user) {
+    public User prepareAndSave(User user) {
         return userRepository.save(UserUtil.prepareToSave(user, PASSWORD_ENCODER));
     }
 }
