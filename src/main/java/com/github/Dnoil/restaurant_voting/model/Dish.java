@@ -29,7 +29,7 @@ public class Dish extends BaseEntity {
     @JsonBackReference(value = "menu-dish")
     @JoinColumn(name = "menu_id", nullable = false)
     @ManyToOne(fetch = FetchType.EAGER)
-    @NotNull
+    //@NotNull
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Menu menu;
 

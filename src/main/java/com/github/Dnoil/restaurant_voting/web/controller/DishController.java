@@ -2,6 +2,7 @@ package com.github.Dnoil.restaurant_voting.web.controller;
 
 import com.github.Dnoil.restaurant_voting.model.Dish;
 import com.github.Dnoil.restaurant_voting.service.DishService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,8 +31,8 @@ public class DishController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Dish> create(@RequestBody Dish dish) {
-        Dish created = dishService.createOrUpdate(dish);
+    public ResponseEntity<Dish> create(@RequestBody @Valid Dish dish) {
+        Dish created = dishService.create(dish);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/dishes/{id}")
@@ -42,8 +43,8 @@ public class DishController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody Dish dish) {
-        dishService.createOrUpdate(dish);
+    public void update(@RequestBody @Valid Dish dish) {
+        dishService.update(dish);
     }
 
     @DeleteMapping("/{id}")

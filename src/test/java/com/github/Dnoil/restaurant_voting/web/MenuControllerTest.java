@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static com.github.Dnoil.restaurant_voting.data.MenuTestData.*;
 import static com.github.Dnoil.restaurant_voting.data.RestaurantTestData.RESTAURANT_ID;
 import static com.github.Dnoil.restaurant_voting.data.UserTestData.ADMIN_MAIL;
+import static com.github.Dnoil.restaurant_voting.data.UserTestData.USER1_MAIL;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -23,7 +24,7 @@ public class MenuControllerTest extends AbstractControllerTest {
     private static final String MENUS_URL = "/menus";
 
     @Test
-    @WithUserDetails(value = ADMIN_MAIL)
+    @WithUserDetails(value = USER1_MAIL)
     void get() throws Exception {
         perform(MockMvcRequestBuilders.get(MENUS_URL + "/restaurant?id=" + RESTAURANT_ID))
                 .andExpect(status().isOk())
@@ -55,7 +56,7 @@ public class MenuControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void createWithLocation() throws Exception {
-        Restaurant newRestaurant = restaurantService.createOrUpdate(RestaurantTestData.getNew());
+        Restaurant newRestaurant = restaurantService.create(RestaurantTestData.getNew());
         Menu newMenu = MenuTestData.getNew(newRestaurant);
         ResultActions action = perform(MockMvcRequestBuilders.post(MENUS_URL)
                 .contentType(MediaType.APPLICATION_JSON)

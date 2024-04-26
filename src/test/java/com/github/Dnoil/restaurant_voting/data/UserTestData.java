@@ -20,7 +20,7 @@ public class UserTestData {
     public static final String USER2_MAIL = "another_user@gmail.com";
 
     public static final User admin = new User(ADMIN_ID, "Some Admin", ADMIN_MAIL, "admin321",
-            "54321", Role.ADMIN);
+            "54321", Role.ADMIN, Role.USER);
     public static final User user1 = new User(USER_ID, "Some User", USER1_MAIL, "user123",
             "12345", Role.USER);
     public static final User user2 = new User(ANOTHER_USER_ID, "Some Another User", USER2_MAIL, "another_user123",

@@ -5,6 +5,7 @@ import com.github.Dnoil.restaurant_voting.model.Dish;
 import com.github.Dnoil.restaurant_voting.repository.DishRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -24,8 +25,14 @@ public class DishService {
         return dishRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found dish with id=" + id));
     }
 
-    public Dish createOrUpdate(Dish dish) {
+    public Dish create(Dish dish) {
+        Assert.notNull(dish, "Dish can not be null");
         return dishRepository.save(dish);
+    }
+
+    public void update(Dish dish) {
+        Assert.notNull(dish, "Dish can not be null");
+        dishRepository.save(dish);
     }
 
     public void delete(int id) {

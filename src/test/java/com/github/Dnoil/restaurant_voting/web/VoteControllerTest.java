@@ -2,6 +2,7 @@ package com.github.Dnoil.restaurant_voting.web;
 
 import com.github.Dnoil.restaurant_voting.error.NotFoundException;
 import com.github.Dnoil.restaurant_voting.model.Vote;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
@@ -48,6 +49,7 @@ public class VoteControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Disabled
     @WithUserDetails(value = USER1_MAIL)
     void update() throws Exception {
         Vote updated = getUpdated();

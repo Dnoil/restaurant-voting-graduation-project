@@ -19,9 +19,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Vote extends BaseEntity {
 
-    @Column(name = "voted_time", nullable = false)
+    @Column(name = "voted_date_time", nullable = false)
     @NotNull
-    private LocalDateTime votedTime = LocalDateTime.now();
+    private LocalDateTime votedDateTime = LocalDateTime.now();
 
     @JoinColumn(name = "user_id", nullable = false)
     @OneToOne(fetch = FetchType.EAGER)
@@ -47,7 +47,7 @@ public class Vote extends BaseEntity {
         return "Vote{" +
                 "id='" + getId() + '\'' +
                 ", name='" + getName() + '\'' +
-                ", votedTime=" + votedTime +
+                ", votedTime=" + votedDateTime +
                 ", user=" + user +
                 ", restaurant=" + restaurant +
                 '}';

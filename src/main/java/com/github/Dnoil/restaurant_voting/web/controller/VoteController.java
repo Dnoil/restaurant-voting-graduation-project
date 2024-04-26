@@ -2,6 +2,7 @@ package com.github.Dnoil.restaurant_voting.web.controller;
 
 import com.github.Dnoil.restaurant_voting.model.Vote;
 import com.github.Dnoil.restaurant_voting.service.VoteService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,8 +31,8 @@ public class VoteController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Vote> create(@RequestBody Vote vote) {
-        Vote created = voteService.createOrUpdate(vote);
+    public ResponseEntity<Vote> create(@RequestBody @Valid Vote vote) {
+        Vote created = voteService.create(vote);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/votes/{id}")
@@ -42,8 +43,8 @@ public class VoteController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody Vote vote) {
-        voteService.createOrUpdate(vote);
+    public void update(@RequestBody @Valid Vote vote) {
+        voteService.update(vote);
     }
 
     @DeleteMapping("/{id}")

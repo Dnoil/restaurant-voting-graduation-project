@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -58,16 +57,16 @@ public abstract class AbstractControllerTest {
         userService.create(admin);
         userService.create(user1);
         userService.create(user2);
-        restaurantService.createOrUpdate(restaurant1);
-        restaurantService.createOrUpdate(restaurant2);
-        menuService.createOrUpdate(menu1);
-        menuService.createOrUpdate(menu2);
-        dishService.createOrUpdate(dish1_1);
-        dishService.createOrUpdate(dish1_2);
-        dishService.createOrUpdate(dish2_1);
-        dishService.createOrUpdate(dish2_2);
-        voteService.createOrUpdate(vote1);
-        voteService.createOrUpdate(vote2);
+        restaurantService.create(restaurant1);
+        restaurantService.create(restaurant2);
+        menuService.create(menu1);
+        menuService.create(menu2);
+        dishService.create(dish1_1);
+        dishService.create(dish1_2);
+        dishService.create(dish2_1);
+        dishService.create(dish2_2);
+        voteService.create(vote1);
+        voteService.create(vote2);
     }
 
     protected ResultActions perform(MockHttpServletRequestBuilder builder) throws Exception {

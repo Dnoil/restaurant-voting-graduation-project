@@ -30,7 +30,7 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.securityMatcher("/**").authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.GET, "/restaurants/**", "/dishes/**")
+                        .requestMatchers(HttpMethod.GET, "/restaurants/**", "/menus/**", "/dishes/**")
                             .hasAuthority(Role.USER.getAuthority())
                         .requestMatchers("/admin/**", "/restaurants/**", "/menus/**", "/dishes/**")
                             .hasAuthority(Role.ADMIN.getAuthority())

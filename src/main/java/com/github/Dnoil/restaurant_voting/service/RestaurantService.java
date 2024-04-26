@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -36,8 +37,15 @@ public class RestaurantService {
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
-    public Restaurant createOrUpdate(Restaurant restaurant) {
+    public Restaurant create(Restaurant restaurant) {
+        Assert.notNull(restaurant, "Restaurant can not be null");
         return restaurantRepository.save(restaurant);
+    }
+
+    @CacheEvict(value = "restaurants", allEntries = true)
+    public void update(Restaurant restaurant) {
+        Assert.notNull(restaurant, "Restaurant can not be null");
+        restaurantRepository.save(restaurant);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
