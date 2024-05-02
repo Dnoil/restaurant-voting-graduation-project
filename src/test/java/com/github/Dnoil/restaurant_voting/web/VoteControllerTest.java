@@ -32,12 +32,32 @@ public class VoteControllerTest extends AbstractControllerTest {
 
     @Test
     @WithUserDetails(value = USER1_MAIL)
-    void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(VOTES_URL + "/" + USER_ID))
+    void getAllWithOld() throws Exception {
+        perform(MockMvcRequestBuilders.get(VOTES_URL + "/old"))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(VOTE_MATCHER.contentJson(votesWithOld));
+    }
+
+    @Test
+    @WithUserDetails(value = USER1_MAIL)
+    void getActual() throws Exception {
+        perform(MockMvcRequestBuilders.get(VOTES_URL + "/user?value=" + USER_ID))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(VOTE_MATCHER.contentJson(vote1));
+    }
+
+    @Test
+    @WithUserDetails(value = USER1_MAIL)
+    void get() throws Exception {
+        perform(MockMvcRequestBuilders.get(VOTES_URL + "/old/" + OLD_VOTE_ID))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(VOTE_MATCHER.contentJson(oldVote));
     }
 
     @Test
@@ -72,6 +92,6 @@ public class VoteControllerTest extends AbstractControllerTest {
         int newId = created.id();
         newVote.setId(newId);
         VOTE_MATCHER.assertMatch(created, newVote);
-        VOTE_MATCHER.assertMatch(voteService.get(newVote.getUser().id()), newVote);
+        VOTE_MATCHER.assertMatch(voteService.getActual(newVote.getUser().id()), newVote);
     }
 }

@@ -12,7 +12,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "vote")
+@Table(name = "vote", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "voted_date_time"}, name = "single_vote_from_user_per_day")})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,7 +24,7 @@ public class Vote extends BaseEntity {
     private LocalDateTime votedDateTime = LocalDateTime.now();
 
     @JoinColumn(name = "user_id", nullable = false)
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @NotNull
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;

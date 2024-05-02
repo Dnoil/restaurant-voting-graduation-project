@@ -12,14 +12,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.LocalDateTime;
+
 import static com.github.Dnoil.restaurant_voting.data.DishTestData.*;
-import static com.github.Dnoil.restaurant_voting.data.MenuTestData.menu1;
-import static com.github.Dnoil.restaurant_voting.data.MenuTestData.menu2;
+import static com.github.Dnoil.restaurant_voting.data.MenuTestData.*;
 import static com.github.Dnoil.restaurant_voting.data.RestaurantTestData.restaurant1;
 import static com.github.Dnoil.restaurant_voting.data.RestaurantTestData.restaurant2;
 import static com.github.Dnoil.restaurant_voting.data.UserTestData.*;
-import static com.github.Dnoil.restaurant_voting.data.VoteTestData.vote1;
-import static com.github.Dnoil.restaurant_voting.data.VoteTestData.vote2;
+import static com.github.Dnoil.restaurant_voting.data.VoteTestData.*;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 @SpringBootTest
@@ -59,6 +59,8 @@ public abstract class AbstractControllerTest {
         userService.create(user2);
         restaurantService.create(restaurant1);
         restaurantService.create(restaurant2);
+        //oldMenu.setDate(LocalDate.now().minusDays(1));
+        //menuService.create(oldMenu);
         menuService.create(menu1);
         menuService.create(menu2);
         dishService.create(dish1_1);
@@ -67,6 +69,8 @@ public abstract class AbstractControllerTest {
         dishService.create(dish2_2);
         voteService.create(vote1);
         voteService.create(vote2);
+        oldVote.setVotedDateTime(LocalDateTime.now().minusDays(1));
+        voteService.create(oldVote);
     }
 
     protected ResultActions perform(MockHttpServletRequestBuilder builder) throws Exception {

@@ -13,15 +13,17 @@ public class VoteTestData {
     public static final MatcherFactory.Matcher<Vote> VOTE_MATCHER = MatcherFactory.usingEqualsComparator(Vote.class);
 
     public static final int VOTE_ID = 1;
+    public static final int OLD_VOTE_ID = 3;
 
     public static final Vote vote1 = new Vote(VOTE_ID, user1, restaurant2);
-
     public static final Vote vote2 = new Vote(VOTE_ID + 1, user2, restaurant2);
+    public static final Vote oldVote = new Vote(OLD_VOTE_ID, user1, restaurant2);
 
     public static final List<Vote> votes = List.of(vote1, vote2);
+    public static final List<Vote> votesWithOld = List.of(vote1, vote2, oldVote);
 
     public static Vote getNew() {
-        return new Vote(VOTE_ID + 2, admin, restaurant1);
+        return new Vote((Integer) null, admin, restaurant1);
     }
 
     public static Vote getUpdated() {

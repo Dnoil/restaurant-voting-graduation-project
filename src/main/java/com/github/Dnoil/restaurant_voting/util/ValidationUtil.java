@@ -3,7 +3,6 @@ package com.github.Dnoil.restaurant_voting.util;
 import com.github.Dnoil.restaurant_voting.HasId;
 import com.github.Dnoil.restaurant_voting.error.IllegalRequestDataException;
 import com.github.Dnoil.restaurant_voting.error.NotFoundException;
-import com.github.Dnoil.restaurant_voting.model.BaseEntity;
 
 public class ValidationUtil {
     public static <T> T checkNotFoundWithId(T object, int id) {
