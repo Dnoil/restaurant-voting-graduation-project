@@ -44,6 +44,7 @@ CREATE TABLE menu
     FOREIGN KEY (restaurant_id) REFERENCES restaurant (id) ON DELETE CASCADE,
     CONSTRAINT single_menu_per_day UNIQUE (date)
 );
+CREATE UNIQUE INDEX date_idx ON menu (date);
 
 CREATE TABLE dish
 (
@@ -66,3 +67,4 @@ CREATE TABLE vote
     FOREIGN KEY (restaurant_id) REFERENCES restaurant (id) ON DELETE CASCADE,
     CONSTRAINT single_vote_from_user_per_day UNIQUE (user_id, voted_date_time)
 );
+CREATE UNIQUE INDEX voted_date_time_idx ON vote (voted_date_time);

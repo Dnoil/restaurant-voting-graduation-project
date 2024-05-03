@@ -21,7 +21,7 @@
         <appender-ref ref="result"/>
     </logger>
 
-    <logger name="com.github.Dnoil.restaurant_voting" level="debug"/>
+    <logger name="com.github.Dnoil.restaurant.voting" level="debug"/>
 
     <root level="INFO">
         <appender-ref ref="console"/>
