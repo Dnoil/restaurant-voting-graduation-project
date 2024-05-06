@@ -24,5 +24,5 @@ INSERT INTO dish (name, price, menu_id)
 VALUES ('Cool Dish', 199, 0),
        ('Cooler Dish', 200, 1);
 
-INSERT INTO vote (name, voted_time, user_id, restaurant_id)
+INSERT INTO vote (name, voted_date_time, user_id, restaurant_id)
 VALUES ('first', now(), 0, 0);

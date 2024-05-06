@@ -10,7 +10,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.github.Dnoil</groupId>
+    <groupId>com.github.dnoil</groupId>
     <artifactId>restaurant-voting</artifactId>
 
     <version>0.0.1-SNAPSHOT</version>
@@ -30,6 +30,7 @@
         <lombok.version>1.18.30</lombok.version>
         <slf4j.version>2.0.12</slf4j.version>
         <logback.version>1.5.3</logback.version>
+        <swagger.version>3.0.0</swagger.version>
     </properties>
 
     <dependencies>
@@ -208,6 +209,32 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
+
+        <!-- Swagger/Springdoc/OpenAPI -->
+        <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>2.2.16</version>
+        </dependency>
+
     </dependencies>
 
     <build>

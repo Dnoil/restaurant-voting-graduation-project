@@ -12,3 +12,5 @@ spring:
       getter: none
       setter: none
       is-getter: none
+
+springdoc.swagger-ui.path: /

@@ -1,4 +1,7 @@
-### Task
+# Restaurant Voting Graduation Project
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/00c51a6d85b0478aa0bd37ee05e4a6e2)](https://app.codacy.com/gh/Dnoil/restaurant-voting-graduation-project/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
+## Task
 
 Design and implement a REST API using Spring-Boot/Spring Data JPA without frontend.
 
@@ -20,3 +23,6 @@ As a result, provide a link to github repository. It should contain the code, RE
 
 P.S.: Make sure everything works with latest version that is on github :)
 P.P.S.: Assume that your API will be used by a frontend developer to build frontend on top of that.
+
+## Swagger Documentation
+http://localhost:8080/swagger-ui/index.html
