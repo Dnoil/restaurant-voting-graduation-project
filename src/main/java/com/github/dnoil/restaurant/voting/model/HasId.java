@@ -1,4 +1,4 @@
-package com.github.dnoil.restaurant.voting;
+package com.github.dnoil.restaurant.voting.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.util.Assert;

@@ -24,7 +24,7 @@ import java.net.URI;
 @Slf4j
 @AllArgsConstructor
 @RequestMapping(value = "/api/user", produces = MediaType.APPLICATION_JSON_VALUE)
-public class UserController {
+public class ProfileController {
 
     private UserService userService;
 

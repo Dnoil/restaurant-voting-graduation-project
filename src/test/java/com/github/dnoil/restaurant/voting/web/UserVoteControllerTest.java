@@ -9,50 +9,30 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.github.dnoil.restaurant.voting.data.UserTestData.USER1_MAIL;
-import static com.github.dnoil.restaurant.voting.data.UserTestData.USER_ID;
 import static com.github.dnoil.restaurant.voting.data.VoteTestData.*;
+import static com.github.dnoil.restaurant.voting.data.VoteTestData.VOTE_MATCHER;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class VoteControllerTest extends AbstractControllerTest {
-    private static final String VOTES_URL = "/api/votes";
+public class UserVoteControllerTest extends AbstractControllerTest {
+    private static final String USER_VOTES_URL = "/api/votes";
 
     @Test
     @WithUserDetails(value = USER1_MAIL)
     void getAllActual() throws Exception {
-        perform(MockMvcRequestBuilders.get(VOTES_URL))
+        perform(MockMvcRequestBuilders.get(USER_VOTES_URL))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(VOTE_MATCHER.contentJson(votes));
-    }
-
-    @Test
-    @WithUserDetails(value = USER1_MAIL)
-    void getAllWithOld() throws Exception {
-        perform(MockMvcRequestBuilders.get(VOTES_URL + "/old/user?id=" + USER_ID))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(VOTE_MATCHER.contentJson(votesOfUserWithOld));
-    }
-
-    @Test
-    @WithUserDetails(value = USER1_MAIL)
-    void getActual() throws Exception {
-        perform(MockMvcRequestBuilders.get(VOTES_URL + "/user?id=" + USER_ID))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(VOTE_MATCHER.contentJson(vote1));
+                .andExpect(VOTE_MATCHER.contentJson(votesOfUser));
     }
 
     @Test
     @WithUserDetails(value = USER1_MAIL)
     void delete() throws Exception {
-        perform(MockMvcRequestBuilders.delete(VOTES_URL + "/" + VOTE_ID))
+        perform(MockMvcRequestBuilders.delete(USER_VOTES_URL))
                 .andExpect(status().isNoContent());
         assertThrows(NotFoundException.class, () -> voteService.getActual(VOTE_ID));
     }
@@ -61,7 +41,7 @@ public class VoteControllerTest extends AbstractControllerTest {
     @WithUserDetails(value = USER1_MAIL)
     void createWithLocation() throws Exception {
         Vote newVote = getNew();
-        ResultActions action = perform(MockMvcRequestBuilders.post(VOTES_URL)
+        ResultActions action = perform(MockMvcRequestBuilders.post(USER_VOTES_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newVote)))
                 .andExpect(status().isCreated());

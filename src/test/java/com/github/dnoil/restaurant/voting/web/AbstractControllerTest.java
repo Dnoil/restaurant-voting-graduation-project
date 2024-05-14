@@ -14,13 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
+//@Sql(scripts = {"classpath:db/initDB.sql", "classpath:db/populateDB.sql"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 public abstract class AbstractControllerTest {
 
     @Autowired
@@ -55,7 +55,7 @@ public abstract class AbstractControllerTest {
         userService.create(UserTestData.user2);
         restaurantService.create(RestaurantTestData.restaurant1);
         restaurantService.create(RestaurantTestData.restaurant2);
-        MenuTestData.oldMenu.setDate(LocalDate.now().minusDays(1));
+        MenuTestData.oldMenu.setDay(LocalDate.now().minusDays(1));
         menuService.create(MenuTestData.oldMenu);
         menuService.create(MenuTestData.menu1);
         menuService.create(MenuTestData.menu2);
@@ -65,7 +65,7 @@ public abstract class AbstractControllerTest {
         dishService.create(DishTestData.dish2_2);
         voteService.create(VoteTestData.vote1);
         voteService.create(VoteTestData.vote2);
-        VoteTestData.oldVote.setVotedDateTime(LocalDateTime.now().minusDays(1));
+        VoteTestData.oldVote.setDay(LocalDate.now().minusDays(1));
         voteService.create(VoteTestData.oldVote);
     }
 

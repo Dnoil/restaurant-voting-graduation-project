@@ -1,4 +1,4 @@
-package com.github.dnoil.restaurant.voting.security;
+package com.github.dnoil.restaurant.voting.config;
 
 import com.github.dnoil.restaurant.voting.model.Role;
 import lombok.AllArgsConstructor;
@@ -30,10 +30,7 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.securityMatcher("/**").authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.GET, "/api/restaurants/**")
-                            .hasAuthority(Role.USER.getAuthority())
-                        .requestMatchers("/api/admin/**")
-                            .hasAuthority(Role.ADMIN.getAuthority())
+                        .requestMatchers("/api/admin/**").hasAuthority(Role.ADMIN.getAuthority())
                         .requestMatchers(HttpMethod.POST, "/api/user").anonymous()
                         .requestMatchers("/", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
                         .requestMatchers("/**").authenticated())

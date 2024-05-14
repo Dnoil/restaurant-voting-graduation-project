@@ -1,8 +1,7 @@
 package com.github.dnoil.restaurant.voting.service;
 
-import com.github.dnoil.restaurant.voting.repository.DishRepository;
-import com.github.dnoil.restaurant.voting.error.NotFoundException;
 import com.github.dnoil.restaurant.voting.model.Dish;
+import com.github.dnoil.restaurant.voting.repository.DishRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -22,7 +21,7 @@ public class DishService {
     }
 
     public Dish get(int id) {
-        return dishRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found dish with id=" + id));
+        return checkNotFoundWithId(dishRepository.findById(id), id);
     }
 
     public Dish create(Dish dish) {

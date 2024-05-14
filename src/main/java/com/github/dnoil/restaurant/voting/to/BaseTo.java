@@ -1,6 +1,6 @@
 package com.github.dnoil.restaurant.voting.to;
 
-import com.github.dnoil.restaurant.voting.HasId;
+import com.github.dnoil.restaurant.voting.model.HasId;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;

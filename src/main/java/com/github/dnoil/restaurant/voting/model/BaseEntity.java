@@ -1,10 +1,8 @@
 package com.github.dnoil.restaurant.voting.model;
 
-import com.github.dnoil.restaurant.voting.HasId;
 import com.github.dnoil.restaurant.voting.util.Util;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,12 +18,8 @@ public abstract class BaseEntity implements HasId {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(hidden = true)
     private Integer id;
-
-    @Column(name = "name", nullable = false)
-    @NotBlank
-    @Size(min = 1, max = 128)
-    private String name;
 
     @Override
     public boolean equals(Object o) {

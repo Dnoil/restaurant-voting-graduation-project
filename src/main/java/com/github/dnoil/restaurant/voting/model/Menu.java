@@ -1,6 +1,7 @@
 package com.github.dnoil.restaurant.voting.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -14,22 +15,23 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "menu", uniqueConstraints = @UniqueConstraint(columnNames = {"date", "restaurant_id"},
-        name = "single_menu_per_day"), indexes = @Index(columnList = "date", name = "date_idx"))
+@Table(name = "menu", uniqueConstraints = @UniqueConstraint(columnNames = {"restaurant_id", "day"},
+        name = "single_menu_per_day"), indexes = @Index(columnList = "day", name = "date_idx"))
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Menu extends BaseEntity {
 
-    @Column(name = "date")
+    @Column(name = "day")
     @NotNull
-    private LocalDate date = LocalDate.now();
+    private LocalDate day = LocalDate.now();
 
     @JoinColumn(name = "restaurant_id", nullable = false)
     @ManyToOne(fetch = FetchType.EAGER)
     @NotNull
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @Schema(hidden = true)
     private Restaurant restaurant;
 
     @JsonManagedReference
@@ -37,8 +39,8 @@ public class Menu extends BaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Dish> dishes;
 
-    public Menu(Integer id, String name, Restaurant restaurant) {
-        super(id, name);
+    public Menu(Integer id, Restaurant restaurant) {
+        super(id);
         this.restaurant = restaurant;
     }
 
@@ -46,10 +48,8 @@ public class Menu extends BaseEntity {
     public String toString() {
         return "Menu{" +
                 "id='" + getId() + '\'' +
-                ", name='" + getName() + '\'' +
-                ", date=" + date +
+                ", day=" + day +
                 ", restaurant=" + restaurant +
-                ", dishes=" + dishes +
                 '}';
     }
 }

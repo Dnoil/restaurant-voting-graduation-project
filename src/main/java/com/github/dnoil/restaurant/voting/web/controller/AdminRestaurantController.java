@@ -16,19 +16,14 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "/api/restaurants", produces = MediaType.APPLICATION_JSON_VALUE)
-public class RestaurantController {
+@RequestMapping(value = "/api/admin/restaurants", produces = MediaType.APPLICATION_JSON_VALUE)
+public class AdminRestaurantController {
 
     private RestaurantService restaurantService;
 
     @GetMapping
     public List<Restaurant> getAll() {
-        return restaurantService.getAll();
-    }
-
-    @GetMapping("/by-votes")
-    public List<Restaurant> getAllByVotes() {
-        return restaurantService.getAllByVotes();
+        return restaurantService.getAllActual();
     }
 
     @GetMapping("/{id}")
@@ -46,7 +41,7 @@ public class RestaurantController {
         ValidationUtil.checkNew(restaurant);
         Restaurant created = restaurantService.create(restaurant);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/api/restaurants/{id}").buildAndExpand(created.getId()).toUri();
+                .path("/api/admin/restaurants/{id}").buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 

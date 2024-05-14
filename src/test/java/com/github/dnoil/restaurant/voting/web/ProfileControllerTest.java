@@ -13,7 +13,7 @@ import static com.github.dnoil.restaurant.voting.data.UserTestData.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class UserControllerTest extends AbstractControllerTest {
+public class ProfileControllerTest extends AbstractControllerTest {
     private static final String USER_URL = "/api/user";
 
     @Test

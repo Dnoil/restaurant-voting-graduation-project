@@ -5,15 +5,15 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.hibernate5.jakarta.Hibernate5JakartaModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 
 public class JsonObjectMapper extends ObjectMapper {
 
     private static final ObjectMapper MAPPER = new JsonObjectMapper();
 
     private JsonObjectMapper() {
-        registerModule(new Hibernate5Module());
+        registerModule(new Hibernate5JakartaModule());
         registerModule(new JavaTimeModule());
         configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);

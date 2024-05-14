@@ -2,9 +2,15 @@ package com.github.dnoil.restaurant.voting.util;
 
 import com.github.dnoil.restaurant.voting.error.IllegalRequestDataException;
 import com.github.dnoil.restaurant.voting.error.NotFoundException;
-import com.github.dnoil.restaurant.voting.HasId;
+import com.github.dnoil.restaurant.voting.model.HasId;
+
+import java.util.Optional;
 
 public class ValidationUtil {
+    public static <T> T checkNotFoundWithId(Optional<T> entity, int id) {
+        return entity.orElseThrow(() -> new NotFoundException("Not found entity with id=" + id));
+    }
+
     public static <T> T checkNotFoundWithId(T object, int id) {
         checkNotFoundWithId(object != null, id);
         return object;

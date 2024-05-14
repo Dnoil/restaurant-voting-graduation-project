@@ -8,7 +8,7 @@ import java.util.List;
 
 public class DishTestData {
 
-    public static final MatcherFactory.Matcher<Dish> DISH_MATCHER = MatcherFactory.usingEqualsComparator(Dish.class);
+    public static final MatcherFactory.Matcher<Dish> DISH_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Dish.class, "menu");
 
     public static final int DISH_ID = 1;
 

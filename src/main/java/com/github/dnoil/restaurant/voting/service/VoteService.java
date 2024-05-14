@@ -4,11 +4,10 @@ import com.github.dnoil.restaurant.voting.model.Vote;
 import com.github.dnoil.restaurant.voting.repository.VoteRepository;
 import com.github.dnoil.restaurant.voting.util.TimeUtil;
 import lombok.AllArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.github.dnoil.restaurant.voting.util.ValidationUtil.checkNotFoundWithId;
@@ -19,9 +18,8 @@ public class VoteService {
 
     private final VoteRepository voteRepository;
 
-    @Cacheable(value = "votes")
     public List<Vote> getAllActual() {
-        return voteRepository.getAllActual();
+        return voteRepository.getAllActualByDay(LocalDate.now());
     }
 
     public List<Vote> getAllByUserId(int userId) {
@@ -29,24 +27,26 @@ public class VoteService {
     }
 
     public Vote getActual(int userId) {
-        return checkNotFoundWithId(voteRepository.getActualByUserId(userId), userId);
+        return checkNotFoundWithId(voteRepository.getActualByUserIdAndDay(userId, LocalDate.now()), userId);
     }
 
-    @CacheEvict(value = "votes", allEntries = true)
     public Vote create(Vote vote) {
         Assert.notNull(vote, "Vote can not be null");
+        //TimeUtil.validateVoteTime(vote);
         return voteRepository.save(vote);
     }
 
-    @CacheEvict(value = "votes", allEntries = true)
     public void update(Vote vote) {
         Assert.notNull(vote, "Vote can not be null");
-        TimeUtil.validateVoteDateTime(vote);
+        TimeUtil.validateVoteTime(vote);
         voteRepository.save(vote);
     }
 
-    @CacheEvict(value = "votes", allEntries = true)
     public void delete(int id) {
         checkNotFoundWithId(voteRepository.delete(id), id);
+    }
+
+    public void deleteByUserId(int userId) {
+        voteRepository.deleteByUserIdAndDay(userId, LocalDate.now());
     }
 }

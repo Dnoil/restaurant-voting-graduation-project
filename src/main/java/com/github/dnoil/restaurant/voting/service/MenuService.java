@@ -2,11 +2,11 @@ package com.github.dnoil.restaurant.voting.service;
 
 import com.github.dnoil.restaurant.voting.model.Menu;
 import com.github.dnoil.restaurant.voting.repository.MenuRepository;
-import com.github.dnoil.restaurant.voting.util.TimeUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.github.dnoil.restaurant.voting.util.ValidationUtil.checkNotFoundWithId;
@@ -22,7 +22,7 @@ public class MenuService {
     }
 
     public Menu getActual(int restaurantId) {
-        return TimeUtil.validateMenuDate(checkNotFoundWithId(menuRepository.getActualByRestaurantId(restaurantId), restaurantId));
+        return checkNotFoundWithId(menuRepository.getActualByRestaurantIdAndDay(restaurantId, LocalDate.now()), restaurantId);
     }
 
     public Menu create(Menu menu) {

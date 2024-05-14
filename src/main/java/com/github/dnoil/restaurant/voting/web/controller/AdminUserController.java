@@ -19,7 +19,7 @@ import java.util.List;
 @Slf4j
 @AllArgsConstructor
 @RequestMapping(value = "/api/admin/users", produces = MediaType.APPLICATION_JSON_VALUE)
-public class AdminController {
+public class AdminUserController {
 
     private UserService userService;
 

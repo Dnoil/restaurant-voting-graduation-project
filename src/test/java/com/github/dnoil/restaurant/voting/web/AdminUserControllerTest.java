@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class AdminControllerTest extends AbstractControllerTest {
+public class AdminUserControllerTest extends AbstractControllerTest {
     private static final String ADMIN_URL = "/api/admin/users";
 
     @Test

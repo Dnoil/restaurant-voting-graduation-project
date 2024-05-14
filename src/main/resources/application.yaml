@@ -1,16 +1,22 @@
 spring:
   datasource:
-    url: jdbc:hsqldb:mem:restaurant-voting;DB_CLOSE_DELAY=-1
     driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: jdbc:hsqldb:mem:restaurant-voting;DB_CLOSE_DELAY=-1
   jpa:
     show-sql: true
+    open-in-view: false
     hibernate:
       ddl-auto: create
+  sql:
+    init:
+      schema-locations: classpath:db/initDB.sql
+      data-locations: classpath:db/populateDB.sql
   jackson:
     visibility:
       field: any
       getter: none
       setter: none
       is-getter: none
-
-springdoc.swagger-ui.path: /
+springdoc:
+  swagger-ui:
+    path: /

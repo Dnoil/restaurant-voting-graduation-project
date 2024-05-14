@@ -6,25 +6,26 @@ import com.github.dnoil.restaurant.voting.model.Restaurant;
 
 import java.util.List;
 
-import static com.github.dnoil.restaurant.voting.data.RestaurantTestData.*;
+import static com.github.dnoil.restaurant.voting.data.RestaurantTestData.restaurant1;
+import static com.github.dnoil.restaurant.voting.data.RestaurantTestData.restaurant2;
 
 public class MenuTestData {
-    public static final MatcherFactory.Matcher<Menu> MENU_MATCHER = MatcherFactory.usingEqualsComparator(Menu.class);
+    public static final MatcherFactory.Matcher<Menu> MENU_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Menu.class, "restaurant", "dishes");
 
     public static final int MENU_ID = 1;
 
-    public static final Menu menu1 = new Menu(MENU_ID, "Menu of Cool Resto", restaurant1);
-    public static final Menu menu2 = new Menu(MENU_ID + 1, "Menu of Cooler Resto", restaurant2);
-    public static final Menu oldMenu = new Menu(MENU_ID + 2, "Old Menu of Cool Resto", restaurant1);
+    public static final Menu menu1 = new Menu(MENU_ID, restaurant1);
+    public static final Menu menu2 = new Menu(MENU_ID + 1, restaurant2);
+    public static final Menu oldMenu = new Menu(MENU_ID + 2, restaurant1);
 
-    public static final List<Menu> allMenusOfFirstRestaurant = List.of(menu1, oldMenu);
+    public static final List<Menu> allMenusOfFirstRestaurant = List.of(oldMenu, menu1);
 
     public static Menu getNew(Restaurant newRestaurant) {
-        return new Menu(null, "Menu of New Cool Resto", newRestaurant);
+        return new Menu(null, newRestaurant);
     }
 
     public static Menu getUpdated() {
-        return new Menu(MENU_ID, "Menu of Renovated Cool Resto", restaurant1);
+        return new Menu(MENU_ID, restaurant1);
     }
 
 }

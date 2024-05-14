@@ -26,6 +26,11 @@ import java.util.Set;
 @AllArgsConstructor
 public class User extends BaseEntity {
 
+    @Column(name = "name", nullable = false)
+    @NotBlank
+    @Size(min = 1, max = 128)
+    private String name;
+
     @Column(name = "email", nullable = false, unique = true)
     @Email
     @NotBlank
@@ -55,7 +60,7 @@ public class User extends BaseEntity {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
             uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role"}, name = "unique_role_per_user")})
     @Column(name = "role", nullable = false)
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     private Set<Role> roles;
 
     public void setRoles(Collection<Role> roles) {
@@ -63,7 +68,8 @@ public class User extends BaseEntity {
     }
 
     public User(Integer id, String name, String email, String login, String password, Role... roles) {
-        super(id, name);
+        super(id);
+        this.name = name;
         this.email = email;
         this.login = login;
         this.password = password;
@@ -71,7 +77,8 @@ public class User extends BaseEntity {
     }
 
     public User(User user) {
-        super(user.getId(), user.getName());
+        super(user.getId());
+        this.name = user.getName();
         this.email = user.getEmail();
         this.login = user.getLogin();
         this.password = user.getPassword();
@@ -82,13 +89,12 @@ public class User extends BaseEntity {
     public String toString() {
         return "User{" +
                 "id='" + getId() + '\'' +
-                ", name='" + getName() + '\'' +
+                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", registered=" + registered +
                 ", enabled=" + enabled +
-                ", roles=" + roles +
                 '}';
     }
 }

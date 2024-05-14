@@ -15,14 +15,18 @@ import org.hibernate.annotations.OnDeleteAction;
 import java.util.List;
 
 @Entity
-@Table(name = "restaurant", uniqueConstraints = @UniqueConstraint(columnNames = "address", name = "unique_address"),
-        indexes = @Index(columnList = "name", name = "restaurant_name_idx"))
+@Table(indexes = @Index(columnList = "name", name = "restaurant_name_idx"))
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Restaurant extends BaseEntity {
+
+    @Column(name = "name", nullable = false)
+    @NotBlank
+    @Size(min = 1, max = 128)
+    private String name;
 
     @Column(name = "address", nullable = false)
     @NotBlank
@@ -34,7 +38,8 @@ public class Restaurant extends BaseEntity {
     private List<Menu> menu;
 
     public Restaurant(Integer id, String name, String address) {
-        super(id, name);
+        super(id);
+        this.name = name;
         this.address = address;
     }
 
@@ -42,7 +47,7 @@ public class Restaurant extends BaseEntity {
     public String toString() {
         return "Restaurant{" +
                 "id='" + getId() + '\'' +
-                ", name='" + getName() + '\'' +
+                ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 '}';
     }

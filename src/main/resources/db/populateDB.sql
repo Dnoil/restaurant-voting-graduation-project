@@ -5,24 +5,32 @@ DELETE FROM menu;
 DELETE FROM restaurant;
 
 INSERT INTO users (name, email, login, password)
-VALUES ('User', 'user@yandex.ru', 'userlogin', 'password'),
-       ('Admin', 'admin@gmail.com', 'adminlogin', 'admin');
+VALUES  ('Some Admin', 'admin@gmail.com', 'admin', 'admin'),
+        ('Some User', 'user@gmail.com', 'user1', 'password'),
+        ('Some Another User', 'another_user@gmail.com', 'user2', 'password123');
 
 INSERT INTO user_role (user_id, role)
-VALUES (0, 'ADMIN'),
-       (1, 'USER');
+VALUES  (0, 'ADMIN'),
+        (0, 'USER'),
+        (1, 'USER'),
+        (2, 'USER');
 
 INSERT INTO restaurant (name, address)
-VALUES ('Cool Restaurant', '28 Cool street'),
-       ('Cooler Restaurant', '29 Cool street');
+VALUES ('Cool Resto', '26 Cool street'),
+       ('Cooler Resto', '28 Cool street');
 
-INSERT INTO menu (name, date, restaurant_id)
-VALUES ('Cool Menu', '2024-03-05 09:22:06', 0),
-       ('Cooler Menu', '2024-03-05 09:20:00', 1);
+INSERT INTO menu (day, restaurant_id)
+VALUES (current_date, 0),
+       (current_date, 1),
+       ('2024-03-05', 1);
 
 INSERT INTO dish (name, price, menu_id)
-VALUES ('Cool Dish', 199, 0),
-       ('Cooler Dish', 200, 1);
+VALUES ('First Dish of First Menu', 100, 0),
+       ('Second Dish of First Menu', 150, 0),
+       ('First Dish of Second Menu', 200, 1),
+       ('Second Dish of Second Menu', 250, 1);
 
-INSERT INTO vote (name, voted_date_time, user_id, restaurant_id)
-VALUES ('first', now(), 0, 0);
+INSERT INTO vote (day, voted_time, user_id, restaurant_id)
+VALUES  (current_date, current_time, 1, 1),
+        (current_date, current_time, 2, 1),
+        ('2024-03-05', current_time, 1, 0);
