@@ -24,5 +24,15 @@ As a result, provide a link to github repository. It should contain the code, RE
 P.S.: Make sure everything works with latest version that is on github :)
 P.P.S.: Assume that your API will be used by a frontend developer to build frontend on top of that.
 
+## Default Admin & User
+* Admin
+  * Username: admin@gmail.com
+  * Password: admin
+
+* User
+  * Username: user@gmail.com
+   * Password: password
+
+
 ## Swagger Documentation
 http://localhost:8080/swagger-ui/index.html
