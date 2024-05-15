@@ -48,12 +48,13 @@ public class User extends BaseEntity {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @Column(name = "registered", nullable = false)
+    @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()", updatable = false)
     @NotNull
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Date registered = new Date();
 
-    @Column(name = "enabled", nullable = false)
+    @Column(name = "enabled", nullable = false, columnDefinition = "boolean default true")
+    @NotNull
     private boolean enabled = true;
 
     @Enumerated(EnumType.STRING)

@@ -1,3 +1,4 @@
+DELETE FROM vote;
 DELETE FROM user_role;
 DELETE FROM dish;
 DELETE FROM users;
@@ -16,13 +17,13 @@ VALUES  (0, 'ADMIN'),
         (2, 'USER');
 
 INSERT INTO restaurant (name, address)
-VALUES ('Cool Resto', '26 Cool street'),
-       ('Cooler Resto', '28 Cool street');
+VALUES ('Cool Resto', '26 Cool Street'),
+       ('Cooler Resto', '28 Cool Street');
 
 INSERT INTO menu (day, restaurant_id)
 VALUES (current_date, 0),
        (current_date, 1),
-       ('2024-03-05', 1);
+       ('2024-03-05', 0);
 
 INSERT INTO dish (name, price, menu_id)
 VALUES ('First Dish of First Menu', 100, 0),
@@ -31,6 +32,6 @@ VALUES ('First Dish of First Menu', 100, 0),
        ('Second Dish of Second Menu', 250, 1);
 
 INSERT INTO vote (day, voted_time, user_id, restaurant_id)
-VALUES  (current_date, current_time, 1, 1),
-        (current_date, current_time, 2, 1),
-        ('2024-03-05', current_time, 1, 0);
+VALUES  ('2024-03-05', current_time, 1, 0),
+        (current_date, current_time, 1, 1);
+

@@ -23,12 +23,12 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class Vote extends BaseEntity {
 
-    @Column(name = "day", nullable = false)
+    @Column(name = "day", nullable = false, columnDefinition = "date default current_date")
     @NotNull
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDate day = LocalDate.now();
 
-    @Column(name = "voted_time", nullable = false)
+    @Column(name = "voted_time", nullable = false, columnDefinition = "time default current_time")
     @NotNull
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Schema(example = "00:00:00")

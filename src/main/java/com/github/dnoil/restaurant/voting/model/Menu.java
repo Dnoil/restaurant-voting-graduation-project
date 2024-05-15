@@ -1,6 +1,7 @@
 package com.github.dnoil.restaurant.voting.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -21,9 +22,10 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Menu extends BaseEntity {
 
-    @Column(name = "day")
+    @Column(name = "day", columnDefinition = "date default current_date")
     @NotNull
     private LocalDate day = LocalDate.now();
 
@@ -34,13 +36,18 @@ public class Menu extends BaseEntity {
     @Schema(hidden = true)
     private Restaurant restaurant;
 
-    @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Dish> dishes;
 
     public Menu(Integer id, Restaurant restaurant) {
         super(id);
+        this.restaurant = restaurant;
+    }
+
+    public Menu(Integer id, LocalDate day, Restaurant restaurant) {
+        super(id);
+        this.day = day;
         this.restaurant = restaurant;
     }
 

@@ -50,7 +50,7 @@ public class AdminVoteControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void createWithLocation() throws Exception {
-        Vote newVote = getNew();
+        Vote newVote = getNewFromAdmin();
         ResultActions action = perform(MockMvcRequestBuilders.post(ADMIN_VOTES_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newVote)))

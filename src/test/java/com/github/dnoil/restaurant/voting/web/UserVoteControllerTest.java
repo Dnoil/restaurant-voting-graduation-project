@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.github.dnoil.restaurant.voting.data.UserTestData.USER1_MAIL;
+import static com.github.dnoil.restaurant.voting.data.UserTestData.USER2_MAIL;
 import static com.github.dnoil.restaurant.voting.data.VoteTestData.*;
 import static com.github.dnoil.restaurant.voting.data.VoteTestData.VOTE_MATCHER;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -38,9 +39,9 @@ public class UserVoteControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    @WithUserDetails(value = USER1_MAIL)
+    @WithUserDetails(value = USER2_MAIL)
     void createWithLocation() throws Exception {
-        Vote newVote = getNew();
+        Vote newVote = getNewFromUser2();
         ResultActions action = perform(MockMvcRequestBuilders.post(USER_VOTES_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newVote)))

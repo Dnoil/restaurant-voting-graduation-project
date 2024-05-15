@@ -8,7 +8,7 @@ import java.util.List;
 public class RestaurantTestData {
     public static final MatcherFactory.Matcher<Restaurant> RESTAURANT_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "menu");
 
-    public static final int RESTAURANT_ID = 1;
+    public static final int RESTAURANT_ID = 0;
 
     public static final Restaurant restaurant1 = new Restaurant(RESTAURANT_ID, "Cool Resto", "26 Cool Street");
     public static final Restaurant restaurant2 = new Restaurant(RESTAURANT_ID + 1,"Cooler Resto", "28 Cool Street");

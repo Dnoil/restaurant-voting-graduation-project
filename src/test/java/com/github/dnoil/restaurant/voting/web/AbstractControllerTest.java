@@ -1,11 +1,11 @@
 package com.github.dnoil.restaurant.voting.web;
 
-import com.github.dnoil.restaurant.voting.data.*;
 import com.github.dnoil.restaurant.voting.service.*;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -13,14 +13,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.time.LocalDate;
-
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-//@Sql(scripts = {"classpath:db/initDB.sql", "classpath:db/populateDB.sql"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+@Sql(scripts = {"classpath:db/schema.sql", "classpath:db/data.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
 public abstract class AbstractControllerTest {
 
     @Autowired
@@ -50,23 +48,6 @@ public abstract class AbstractControllerTest {
                 .webAppContextSetup(webApplicationContext)
                 .apply(springSecurity())
                 .build();
-        userService.create(UserTestData.admin);
-        userService.create(UserTestData.user1);
-        userService.create(UserTestData.user2);
-        restaurantService.create(RestaurantTestData.restaurant1);
-        restaurantService.create(RestaurantTestData.restaurant2);
-        MenuTestData.oldMenu.setDay(LocalDate.now().minusDays(1));
-        menuService.create(MenuTestData.oldMenu);
-        menuService.create(MenuTestData.menu1);
-        menuService.create(MenuTestData.menu2);
-        dishService.create(DishTestData.dish1_1);
-        dishService.create(DishTestData.dish1_2);
-        dishService.create(DishTestData.dish2_1);
-        dishService.create(DishTestData.dish2_2);
-        voteService.create(VoteTestData.vote1);
-        voteService.create(VoteTestData.vote2);
-        VoteTestData.oldVote.setDay(LocalDate.now().minusDays(1));
-        voteService.create(VoteTestData.oldVote);
     }
 
     protected ResultActions perform(MockHttpServletRequestBuilder builder) throws Exception {

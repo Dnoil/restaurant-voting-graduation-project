@@ -5,12 +5,10 @@ spring:
   jpa:
     show-sql: true
     open-in-view: false
-    hibernate:
-      ddl-auto: create
   sql:
     init:
-      schema-locations: classpath:db/initDB.sql
-      data-locations: classpath:db/populateDB.sql
+      schema-locations: classpath:db/schema.sql
+      data-locations: classpath:db/data.sql
   jackson:
     visibility:
       field: any

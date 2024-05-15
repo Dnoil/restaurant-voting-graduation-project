@@ -1,6 +1,5 @@
 package com.github.dnoil.restaurant.voting.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -34,9 +33,8 @@ public class Dish extends BaseEntity {
     @Range(min = 0)
     private BigDecimal price;
 
-    @JsonBackReference
     @JoinColumn(name = "menu_id")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @Schema(hidden = true)
     private Menu menu;
