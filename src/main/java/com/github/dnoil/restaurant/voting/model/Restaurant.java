@@ -30,7 +30,7 @@ public class Restaurant extends BaseEntity {
     @Size(max = 255)
     private String address;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "restaurant")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Menu> menu;
 

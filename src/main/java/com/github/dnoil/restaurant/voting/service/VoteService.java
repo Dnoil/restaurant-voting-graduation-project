@@ -32,7 +32,7 @@ public class VoteService {
 
     public Vote create(Vote vote) {
         Assert.notNull(vote, "Vote can not be null");
-        //TimeUtil.validateVoteTime(vote);
+        TimeUtil.validateVoteTime(vote);
         return voteRepository.save(vote);
     }
 

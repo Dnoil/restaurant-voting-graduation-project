@@ -6,9 +6,9 @@ DELETE FROM menu;
 DELETE FROM restaurant;
 
 INSERT INTO users (name, email, login, password)
-VALUES  ('Some Admin', 'admin@gmail.com', 'admin', 'admin'),
-        ('Some User', 'user@gmail.com', 'user1', 'password'),
-        ('Some Another User', 'another_user@gmail.com', 'user2', 'password123');
+VALUES  ('Some Admin', 'admin@gmail.com', 'admin', '{noop}admin'),
+        ('Some User', 'user@gmail.com', 'user1', '{noop}password'),
+        ('Some Another User', 'another_user@gmail.com', 'user2', '{noop}password123');
 
 INSERT INTO user_role (user_id, role)
 VALUES  (0, 'ADMIN'),

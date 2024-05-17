@@ -61,7 +61,7 @@ public class User extends BaseEntity {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
             uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role"}, name = "unique_role_per_user")})
     @Column(name = "role", nullable = false)
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
     public void setRoles(Collection<Role> roles) {

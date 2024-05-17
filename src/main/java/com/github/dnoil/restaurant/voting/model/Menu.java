@@ -36,7 +36,7 @@ public class Menu extends BaseEntity {
     @Schema(hidden = true)
     private Restaurant restaurant;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "menu")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Dish> dishes;
 
